@@ -1,0 +1,36 @@
+.grid-container {
+    display: grid;
+    grid-template-columns: auto auto auto auto;
+    grid-gap: 10px;
+    padding: 10px;
+  }
+.check-container {
+  width: 130px;
+    float: left;
+}
+  .grid-col-container {
+    display: grid;
+    grid-template-columns: auto auto;
+    grid-gap: 10px;
+    padding: 10px;
+  }
+  .grid-col-container > div {
+    background-color: rgba(255, 255, 255, 0.8);
+    text-align: center;
+  }
+
+  .column-seprator {
+    /* Old Chrome, Safari and Opera */
+    -webkit-column-count: 3; 
+    -webkit-column-gap: 40px;
+    
+    /* Old Firefox */
+    -moz-column-count: 3;
+    -moz-column-gap: 40px;
+  
+    /* Standard syntax */
+    column-count: 3;
+    column-gap: 40px;
+  }
+
+  

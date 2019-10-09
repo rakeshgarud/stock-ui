@@ -1,0 +1,74 @@
+<div class="stock-pan">
+  <div class="row">
+    <div class="col-md-10 ">
+      <h2> FII's data.</h2>
+    </div>
+    <!-- <div class="col-md-2">
+      <button class="btn btn-default" (click)="loadData()"> Import Data</button>
+    </div> -->
+  </div>
+  <div class="row seperator">
+    <div class="col-md-12">
+      <div class="row seperator">
+      </div>
+    </div>
+  </div>
+  <div class="row seperator">
+    <div class="col-md-2">
+      <label for="start">Start date:</label>
+      <input class="form-control" type="date" id="start" name="startDate"
+        (change)="onDateChange($event.target.value,true)" />
+    </div>
+    <div class="col-md-2">
+      <label for="start">End date:</label>
+      <input class="form-control" type="date" id="end" name="endDate"
+        (change)="onDateChange($event.target.value,false)">
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <div class="row">
+        <div class="col-md-12">
+          <div *ngFor="let chk of checkBoxFilter" class="checkbox check-container"
+            style="margin-left:10px; margin-right:10px;">
+            <label><input type="checkbox" (change)="checkValue($event.target.checked,chk,'CALL')">{{chk.name}}</label>
+            <!-- <label class="switch" style="margin-left:10px;margin-top: 9px;">
+              <input type="checkbox" checked (change)="directionValue($event.target.checked,chk)">
+              <span class="slider round"></span>
+            </label> -->
+          </div>
+        </div>
+        <div class="col-md-12">
+          <div class="row">
+            <div class="col-md-10">
+            </div>
+          </div>
+          <table id="customers">
+            <tr>
+              <th>Date</th>
+              <th>Future Index Long</th>
+              <th>Future Index Short</th>
+              <th>Option Index Put Long</th>
+              <th>Option Index Put Short</th>
+              <th>Option Index Call Long</th>
+              <th>Option Index Call Short</th>
+              <th>Option Stock Call Long</th>
+              <th>Option Stock Call Short</th>
+            </tr>
+            <tr *ngFor="let activity of activities;let i = index">
+              <td>{{activity.date| date: 'dd/MM/yyyy'}}</td>
+              <td>{{activity.futureIdxLong}}</td>
+              <td>{{activity.futureIdxShort}}</td>
+              <td>{{activity.optionIdxPutLong}}</td>
+              <td>{{activity.optionIdxPutShort}}</td>
+              <td>{{activity.optionIdxCallLong}}</td>
+              <td>{{activity.optionIdxCallShort}}</td>
+              <td>{{activity.optionStockCallLong}}</td>
+              <td>{{activity.optionStockCallShort}}</td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </div>
+    </div>
+</div>

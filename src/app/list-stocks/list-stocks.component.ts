@@ -37,6 +37,14 @@ export class ListStocksComponent implements OnInit {
       });
       console.log(this.stocks);
   }
+  getAllStocksDataList(){
+    this.stockservice.getAllStocksDataList(this.startDate,this.endDate,this.filter)
+      .subscribe(data => {
+        this.stocks = data;
+      });
+      console.log(this.stocks);
+  }
+
   loadData() {
     console.log("Loading data into DB");
     this.stockservice.loadData().subscribe(data => {
@@ -95,8 +103,6 @@ export class ListStocksComponent implements OnInit {
     } else
     this.endDate = value;
     
-    if(this.startDate!=null && this.endDate !=null){
-      this.getStocks();
-    }
+    
   }
 }

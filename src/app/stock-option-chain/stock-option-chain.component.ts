@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { StockService } from '../service/stock.service';
 import { Filters } from '../model/Filters';
+import { StockService } from '../service/stock.service';
 
 @Component({
-  selector: 'app-equity',
-  templateUrl: './equity.component.html',
-  styleUrls: ['./equity.component.css']
+  selector: 'app-stock-option-chain',
+  templateUrl: './stock-option-chain.component.html',
+  styleUrls: ['./stock-option-chain.component.css']
 })
-export class EquityComponent implements OnInit {
+export class StockOptionChainComponent implements OnInit {
 
   checkBoxFilter: Object[];
   equities: Object[] = [];
@@ -17,41 +17,32 @@ export class EquityComponent implements OnInit {
   callEquities: Object[] = [];
   putEquities: Object[] = [];
   sortDir: boolean;
-
   search: any = { strikePrice: null, startDate: null, endDate: null, type: 'CALL' };
+
   constructor(private stockservice: StockService) { }
 
   ngOnInit() {
     this.getCheckfilter();
-   // this.getSymbols();
-    this.getEquities();
+    this.getSymbols();
+    this.getStockOptions();
   }
-
   getCheckfilter() {
     this.stockservice.getFilters("equityFilter").subscribe(data => {
       this.checkBoxFilter = data;
     });
   }
-
-  /* loadEquityData() {
-    console.log("Loading data into DB");
-    this.stockservice.loadEquity().subscribe(data => {
+  getSymbols() {
+    this.stockservice.getSymbols().subscribe(data => {
+      this.symbols = data;
     });
-  }; */
-  getEquities() {
-    this.search.filter = this.filtersRequest;
-    this.stockservice.getEquityByFilter(this.search)
-      .subscribe(data => {
-        if (this.search.type == 'CALL') {
-          this.callEquities = data;
-        }
-        else
-          this.putEquities = data;
-      });
-      console.log("Loading Call data" + this.callEquities);
-      console.log("Loading Put data " + this.putEquities);
   }
-
+  onDateChange(value: any, isStartDate) {
+    if (isStartDate) {
+      this.search.startDate = value;
+    } else
+      this.search.endDate = value;
+    this.getStockOptions();
+  }
   checkValue(event: any, obj: any, type: any) {
     this.search.type = type;
     if (event) {
@@ -59,37 +50,12 @@ export class EquityComponent implements OnInit {
     } else {
       this.filtersRequest = this.filtersRequest.filter(item => item !== obj);
     }
-    this.getEquities();
+    this.getStockOptions();
   }
-
-  /* symbolDropDown(symbol: any) {
-    this.search.symbol = symbol;
-    this.getEquities();
-  } */
-
-  /* getSymbols() {
-    this.stockservice.getSymbols().subscribe(data => {
-      this.symbols = data;
-    });
-  } */
-  onStrikeChange(value: any) {
-    this.search.strikePrice = value;
-    this.getEquities();
-  }
-
-  onDateChange(value: any, isStartDate) {
-    if (isStartDate) {
-      this.search.startDate = value;
-    } else
-      this.search.endDate = value;
-    //this.getEquities();
-  }
-
   getData(value: any) {
     this.search.type = value;
-    this.getEquities();
+    this.getStockOptions();
   }
-
   callSortBy(sortBy, sortDir?) {
     this.sortDir = sortDir;
     if (this.sortDir) {
@@ -115,4 +81,22 @@ export class EquityComponent implements OnInit {
     }
   }
 
+  getStockOptions() {
+    this.search.filter = this.filtersRequest;
+    this.stockservice.getStocksOptionsByFilter(this.search)
+      .subscribe(data => {
+        if (this.search.type == 'CALL') {
+          this.callEquities = data;
+        }
+        else
+          this.putEquities = data;
+      });
+      console.log("Loading Call data" + this.callEquities['oi'].value);
+      console.log("Loading Put data " + this.putEquities);
+  }
+
+  symbolDropDown(symbol: any) {
+    this.search.symbol = symbol;
+    //this.getEquities();
+  }
 }

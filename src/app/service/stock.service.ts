@@ -8,10 +8,11 @@ export class StockService {
   constructor(private http: HttpClient) { }
   baseUrl: string = 'http://localhost:8080/';
   equityEndPoint: string = 'options/';
+
+  // Stock service...........!
   loadData() {
     return this.http.get<Stock[]>(this.baseUrl + 'stock/load-stock');
   }
-
   getStocksByFilter(startDate: any,endDate: any, filetr: Object) {
     let params = new HttpParams();
     params = params.append("endDate", endDate);
@@ -19,32 +20,36 @@ export class StockService {
     //params = params.append("filter", filetr.toString());
     return this.http.post<Stock[]>(this.baseUrl + 'stock/search' ,filetr, {params: params});
   }
-
+  getAllStocksDataList(startDate: any,endDate: any , filetr: Object) {
+    let params = new HttpParams();
+    params = params.append("endDate", endDate);
+    params = params.append("startDate", startDate);
+    //params = params.append("filter", filetr.toString());
+    return this.http.post<Stock[]>(this.baseUrl + 'stock/get-all-stock-list' ,filetr , {params: params});
+  }
   getFilters(type: string) {
     let params = new HttpParams();
     params = params.append("type", type);
     return this.http.get<Filters[]>(this.baseUrl+ 'stock/get-filter',{params: params});
   }
 
+
   //Service for Equity Component
   loadEquity() {
     return this.http.get<Stock[]>(this.baseUrl + this.equityEndPoint+'load-nifty');
   }
-
-  
-  loadStockOptions() {
-    return this.http.get<Stock[]>(this.baseUrl + this.equityEndPoint+ 'load-stocks');
-  }
-
   getEquityByFilter(search : any) {
     let params = new HttpParams();
     return this.http.post<Stock[]>(this.baseUrl + this.equityEndPoint+ 'search/nifty' ,search);
   }
+
+  
   // Service for Premium DK
   getPremiumDKByFilter(search : any) {
     let params = new HttpParams();
     return this.http.post<Stock[]>(this.baseUrl + this.equityEndPoint+  'nifty/premiumdk' ,search);
   }
+
 
   //Service for Activity Component
   loadActivityData() {
@@ -57,6 +62,11 @@ export class StockService {
     return this.http.post<any[]>(this.baseUrl + 'activity/search' ,params);
   }
 
+
+//Stock Options Services..!
+  loadStockOptions() {
+    return this.http.get<Stock[]>(this.baseUrl + this.equityEndPoint+ 'load-stocks');
+  }
   getSymbols() {
     return this.http.get<Filters[]>(this.baseUrl+ 'stock/symbol');
   }

@@ -1,7 +1,7 @@
 <div class="stock-pan">
   <div class="row">
     <div class="col-md-10 ">
-      <h2> Option Chain Nifty / Stocks.</h2>
+      <h2> Option Chain Nifty.</h2>
     </div>
    <!--  <div class="col-md-2">
       <button class="btn btn-default" (click)="loadEquityData()"> Import Data</button>
@@ -76,6 +76,7 @@
               <th class="sort-arrow" (click)="callSortBy('strikePrice',!sortDir)">SP</th>
               <th>V/CHI</th>
             </tr>
+            {{callEquities.date}}
             <tr *ngFor="let equity of callEquities;let i = index">
               <td *ngIf="equity.oi >0  && equity.iv > 0">{{equity.date| date: 'dd/MM/yy'}}</td>
               <td  *ngIf="equity.oi >0  && equity.iv > 0">{{equity.oi}}</td>

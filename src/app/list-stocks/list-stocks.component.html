@@ -23,6 +23,9 @@
           <input class="form-control" type="date" id="end" name="endDate"
             (change)="onDateChange($event.target.value,false)">
         </div>
+        <div class="col-md-2">
+            <button class="btn btn-default" (click)="getAllStocksDataList()"> Search</button>
+          </div>
       </div>
     </div>
   </div>

@@ -13,6 +13,7 @@ import { EquityComponent } from './equity/equity.component';
 import { PremiumdkComponent } from './premiumdk/premiumdk.component';
 import { ActivityComponent } from './activity/activity.component';
 import { AllLoadDataComponent } from './all-load-data/all-load-data.component';
+import { StockOptionChainComponent } from './stock-option-chain/stock-option-chain.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { AllLoadDataComponent } from './all-load-data/all-load-data.component';
     EquityComponent,
     PremiumdkComponent,
     ActivityComponent,
-    AllLoadDataComponent
+    AllLoadDataComponent,
+    StockOptionChainComponent
   ],
   imports: [
     BrowserModule,

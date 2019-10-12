@@ -25,9 +25,9 @@ export class PremiumdkComponent implements OnInit {
     });
   }
 
-  getEquities() {
+  getYesterdayMinusToday() {
     this.search.filter = this.filtersRequest;
-    this.stockService.getPremiumDKByFilter(this.search)
+    this.stockService.getYesterdayMinusTodayByFilter(this.search)
       .subscribe(data => {
           this.equities = data;
       });
@@ -40,7 +40,7 @@ export class PremiumdkComponent implements OnInit {
     } else {
       this.filtersRequest = this.filtersRequest.filter(item => item !== obj);
     }
-    this.getEquities();
+    this.getYesterdayMinusToday();
   }
 
   onDateChange(value: any, isStartDate) {
@@ -48,6 +48,7 @@ export class PremiumdkComponent implements OnInit {
       this.search.startDate = value;
     } else
       this.search.endDate = value;
-    this.getEquities();
+   // this.getEquities();
+     this.getYesterdayMinusToday();
   }
 }

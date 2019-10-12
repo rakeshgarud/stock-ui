@@ -41,7 +41,7 @@ export class StockOptionChainComponent implements OnInit {
       this.search.startDate = value;
     } else
       this.search.endDate = value;
-    this.getStockOptions();
+   // this.getStockOptions();
   }
   checkValue(event: any, obj: any, type: any) {
     this.search.type = type;
@@ -91,7 +91,7 @@ export class StockOptionChainComponent implements OnInit {
         else
           this.putEquities = data;
       });
-      console.log("Loading Call data" + this.callEquities['oi'].value);
+      console.log("Loading Call data" + this.callEquities);
       console.log("Loading Put data " + this.putEquities);
   }
 

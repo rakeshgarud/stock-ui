@@ -44,10 +44,10 @@ export class StockService {
   }
 
   
-  // Service for Premium DK
-  getPremiumDKByFilter(search : any) {
+  // Service for Yesterday - Today
+  getYesterdayMinusTodayByFilter(search : any) {
     let params = new HttpParams();
-    return this.http.post<Stock[]>(this.baseUrl + this.equityEndPoint+  'nifty/premiumdk' ,search);
+    return this.http.post<Stock[]>(this.baseUrl + this.equityEndPoint+  'nifty/yesterday-today' ,search);
   }
 
 
@@ -65,14 +65,14 @@ export class StockService {
 
 //Stock Options Services..!
   loadStockOptions() {
-    return this.http.get<Stock[]>(this.baseUrl + this.equityEndPoint+ 'load-stocks');
+    return this.http.get<Stock[]>(this.baseUrl + this.equityEndPoint+ 'load-stocksOptions');
   }
   getSymbols() {
     return this.http.get<Filters[]>(this.baseUrl+ 'stock/symbol');
   }
   getStocksOptionsByFilter(search : any) {
     let params = new HttpParams();
-    return this.http.post<Stock[]>(this.baseUrl + this.equityEndPoint+ 'search/stocks' ,search);
+    return this.http.post<Stock[]>(this.baseUrl + this.equityEndPoint+ 'search/stocksOptions' ,search);
   }
   /* 
   createUser(user: Stock) {

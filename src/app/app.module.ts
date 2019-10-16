@@ -10,11 +10,11 @@ import { StockService } from "./service/stock.service";
 import { ListStocksComponent } from "./list-stocks/list-stocks.component";
 import { MenuComponent } from './menu/menu.component';
 import { EquityComponent } from './equity/equity.component';
-import { PremiumdkComponent } from './premiumdk/premiumdk.component';
 import { ActivityComponent } from './activity/activity.component';
 import { AllLoadDataComponent } from './all-load-data/all-load-data.component';
 import { StockOptionChainComponent } from './stock-option-chain/stock-option-chain.component';
 import { IntraDayComponent } from './intra-day/intra-day.component';
+import { YesterDayTodayComponent } from './yesterDay-today/yesterDay-today';
 
 @NgModule({
   declarations: [
@@ -22,7 +22,7 @@ import { IntraDayComponent } from './intra-day/intra-day.component';
     ListStocksComponent,
     MenuComponent,
     EquityComponent,
-    PremiumdkComponent,
+    YesterDayTodayComponent,
     ActivityComponent,
     AllLoadDataComponent,
     StockOptionChainComponent,

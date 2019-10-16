@@ -1,0 +1,144 @@
+<div class="stock-pan">
+  <div class="row">
+    <div class="col-md-10 ">
+      <h2> Today - Yesterday EOD.</h2>
+    </div>
+  </div>
+  <div class="row seperator">
+    <div class="col-md-12">
+      <div class="row seperator">
+      </div>
+    </div>
+  </div>
+  <div class="row seperator">
+    <div class="col-md-2">
+      <label for="start">Start date:</label>
+      <input class="form-control" type="date" id="start" name="startDate"
+        (change)="onDateChange($event.target.value,true)" />
+    </div>
+    <div class="col-md-2">
+      <label for="start">End date:</label>
+      <input class="form-control" type="date" id="end" name="endDate"
+        (change)="onDateChange($event.target.value,false)">
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <div class="row">
+        <div class="col-md-12">
+          <div *ngFor="let chk of checkBoxFilter" class="checkbox check-container"
+            style="margin-left:10px; margin-right:10px;">
+            <label><input type="checkbox" (change)="checkValue($event.target.checked,chk,'CALL')">{{chk.name}}</label>
+            <!-- <label class="switch" style="margin-left:10px;margin-top: 9px;">
+              <input type="checkbox" checked (change)="directionValue($event.target.checked,chk)">
+              <span class="slider round"></span>
+            </label> -->
+          </div>
+        </div>
+        <div class="col-md-12">
+          <div class="row">
+              <div class="col-md-10">
+                  <h4>Call</h4>
+                </div>
+                <div class="col-md-1">
+                  <button class="btn btn-info" (click)="getData('CALL')"> Get Call</button>
+                </div>
+          </div>
+          <div class="row seperator"></div>
+          <table id="equityTable">
+            <tr>
+              <th class="sort-arrow" (click)="callSortBy('postionsVol',!sortDir)">Chg-Vol</th>
+              <th>Date</th>
+              <th class="sort-arrow" (click)="callSortBy('oi',!sortDir)">OI</th>
+              <th class="sort-arrow" (click)="callSortBy('chnginOI',!sortDir)">COI</th>
+              <th>IV</th>
+              <th>LTP</th>
+              <th>Net-C</th>
+              <th>Vol</th> 
+              <th class="sort-arrow" (click)="callSortBy('strikePrice',!sortDir)">SP</th>
+            </tr>
+            <tr *ngIf="callYesterdayToday == ''">No record found for above search....!</tr>
+            <tr *ngFor="let equity of callYesterdayToday;let i = index">
+              <td *ngIf="equity.postionsVol!=='NaN'">{{equity.postionsVol | number:'1.1-1'}}</td>
+              <td>{{equity.date| date: 'dd/MM'}}</td>
+              <td><label class="strikethrough">{{equity.oi}}</label>
+                <label *ngIf="equity.prevEquity!==null">{{equity.prevEquity.oi}}</label>
+              </td>
+              <td><label class="strikethrough">{{equity.chnginOI}}</label>
+                <label *ngIf="equity.prevEquity!==null">{{equity.prevEquity.chnginOI}}</label>
+              </td>
+              <td><label class="strikethrough">{{equity.iv | number:'1.1-1'}}</label>
+                <label *ngIf="equity.prevEquity!==null">{{equity.prevEquity.iv | number:'1.1-1'}}</label> 
+              </td>
+              <td><label class="strikethrough">{{equity.ltp | number:'1.1-1'}}</label>
+                <label *ngIf="equity.prevEquity!==null">{{equity.prevEquity.ltp | number:'1.1-1'}}</label> 
+              </td>
+              <td>{{equity.netChng | number:'1.1-1'}}</td>
+              <td>{{equity.volume}}</td>
+              <td>{{equity.strikePrice}}</td> 
+            </tr>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-6">
+        <div class="row">
+          <div class="col-md-12">
+            <div *ngFor="let chk of checkBoxFilter" class="checkbox check-container"
+              style="margin-left:10px; margin-right:10px;">
+              <label><input type="checkbox" (change)="checkValue($event.target.checked,chk,'PUT')">{{chk.name}}</label>
+              <!-- <label class="switch" style="margin-left:10px;margin-top: 9px;">
+                <input type="checkbox" checked (change)="directionValue($event.target.checked,chk)">
+                <span class="slider round"></span>
+              </label> -->
+            </div>
+          </div>
+          <div class="col-md-12">
+            <div class="row">
+              <div class="col-md-10">
+                <h4>PUT</h4>
+              </div>
+              <div class="col-md-1">
+                <button class="btn btn-info" (click)="getData('PUT')"> Get Put</button>
+              </div>
+            </div>
+            <div class="row seperator"></div>
+            <table id="equityTable">
+              <tr>
+                <th class="sort-arrow" (click)="putSortBy('postionsVol',!sortDir)">Chg-Vol</th> 
+                <th>Date</th>
+                <th  class="sort-arrow" (click)="putSortBy('oi',!sortDir)">OI</th>
+                <th class="sort-arrow" (click)="putSortBy('chnginOI',!sortDir)">C-OI</th>
+                <th>IV</th>
+                <th>LTP</th>
+                <th>Net-C</th>
+                <th>Vol</th> 
+                <th class="sort-arrow" (click)="putSortBy('strikePrice',!sortDir)">SP</th>
+              </tr>
+              <tr *ngIf="putYesterdayToday == ''">No record found for above search....!</tr>
+              <tr *ngFor="let equity of putYesterdayToday;let i = index">
+                  <td *ngIf="equity.postionsVol!=='NaN'">{{equity.postionsVol | number:'1.1-1'}}</td>
+                  <td>{{equity.date| date: 'dd/MM'}}</td>
+                  <td><label class="strikethrough">{{equity.oi}}</label>
+                    <label *ngIf="equity.prevEquity!==null">{{equity.prevEquity.oi}}</label>
+                  </td>
+                  <td><label class="strikethrough">{{equity.chnginOI}}</label>
+                    <label *ngIf="equity.prevEquity!==null">{{equity.prevEquity.chnginOI}}</label>
+                  </td>
+                  <td><label class="strikethrough">{{equity.iv | number:'1.1-1'}}</label>
+                    <label *ngIf="equity.prevEquity!==null">{{equity.prevEquity.iv | number:'1.1-1'}}</label>
+                  </td>
+                  <td><label class="strikethrough">{{equity.ltp | number:'1.1-1'}}</label>
+                     <label *ngIf="equity.prevEquity!==null">{{equity.prevEquity.ltp | number:'1.1-1'}}</label>
+                  </td>
+                  <td>{{equity.netChng | number:'1.1-1'}}</td>
+                  <td>{{equity.volume}}</td> 
+                  <td>{{equity.strikePrice}}</td>
+                </tr>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>

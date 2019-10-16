@@ -53,6 +53,9 @@ export class IntraDayComponent implements OnInit {
         else
           this.putIntradayYesterdayToday = data;
       });
+
+      console.log("Calldata--> " +this.callIntradayYesterdayToday);
+      console.log("putdata--> " +this.putIntradayYesterdayToday);
   }
 
   checkValue(event: any, obj: any, type: any) {

@@ -4,8 +4,8 @@ import { StockService } from '../service/stock.service';
 
 @Component({
   selector: 'app-intra-day',
-  templateUrl: './intra-day.component.html',
-  styleUrls: ['./intra-day.component.css']
+  templateUrl: './intra-day.component.html'
+  /* styleUrls: ['./intra-day.component.css'] */
 })
 export class IntraDayComponent implements OnInit {
 
@@ -15,10 +15,18 @@ export class IntraDayComponent implements OnInit {
   filtersRequest: Filters[] = [];
   startTime: any;
   endTime: any;
+  callIntradayYesterdayToday: Object[] = [];
+  putIntradayYesterdayToday: Object[] = [];
+  sortDir: boolean;
   constructor(private stockService:StockService) { }
 
   ngOnInit() {
     this.getCheckfilter();
+  }
+
+   getData(value: any) {
+    this.search.type = value;
+    this.getIntradayYesterdayMinusTodayCall();
   }
 
   getCheckfilter() {
@@ -27,11 +35,23 @@ export class IntraDayComponent implements OnInit {
     });
   }
 
-  getEquities() {
+  /* getEquities() {
     this.search.filter = this.filtersRequest;
     this.stockService.getIntraDay(this.startTime,this.endTime,this.search)
       .subscribe(data => {
           this.equities = data;
+      });
+  } */
+
+  getIntradayYesterdayMinusTodayCall() {
+    this.search.filter = this.filtersRequest;
+    this.stockService.getIntraDay(this.startTime,this.endTime,this.search)
+      .subscribe(data => {
+        if (this.search.type == 'CALL') {
+          this.callIntradayYesterdayToday = data;
+        }
+        else
+          this.putIntradayYesterdayToday = data;
       });
   }
 
@@ -42,7 +62,7 @@ export class IntraDayComponent implements OnInit {
     } else {
       this.filtersRequest = this.filtersRequest.filter(item => item !== obj);
     }
-    this.getEquities();
+    this.getIntradayYesterdayMinusTodayCall();
   }
 
   onDateChange(value: any, isStartDate) {
@@ -50,7 +70,33 @@ export class IntraDayComponent implements OnInit {
       this.startTime = value;
     } else
       this.endTime = value;
-    this.getEquities();
+    //this.getIntradayYesterdayMinusTodayCall();
   }
 
+  callSortBy(sortBy, sortDir?) {
+    this.sortDir = sortDir;
+    if (this.sortDir) {
+      this.callIntradayYesterdayToday.sort(function (a, b) {
+        return a[sortBy] - b[sortBy];
+      });
+    } else {
+      this.callIntradayYesterdayToday.sort(function (a, b) {
+        return b[sortBy] - a[sortBy];
+      });
+    }
+  }
+  putSortBy(sortBy, sortDir?) {
+    this.sortDir = sortDir;
+    if (this.sortDir) {
+      this.putIntradayYesterdayToday.sort(function (a, b) {
+        return a[sortBy] - b[sortBy];
+      });
+    } else {
+      this.putIntradayYesterdayToday.sort(function (a, b) {
+        return b[sortBy] - a[sortBy];
+      });
+    }
+  }
+
+  
 }

@@ -74,7 +74,6 @@ export class StockService {
     let params = new HttpParams();
     return this.http.post<Stock[]>(this.baseUrl + this.equityEndPoint+ 'search/stocksOptions' ,search);
   }
-
   getIntraDay(startTime:any,endTime:any,search : any) {
     let params = new HttpParams();
     params = params.append("startTime", startTime);

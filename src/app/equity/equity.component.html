@@ -19,7 +19,7 @@
       <input class="form-control" type="text" id="strikePrice" name="strikePrice"
         (change)="onStrikeChange($event.target.value)">
     </div>
-    <div class="col-md-3">
+    <!-- <div class="col-md-3">
       <label for="days">Symbol:</label>
       <select class="form-control" (change)="symbolDropDown($event.target.value)">
           <option value=''>
@@ -29,7 +29,7 @@
           {{symbol.companyName}}
         </option>
       </select>
-    </div>
+    </div> -->
     <div class="col-md-2">
       <label for="start">Start date:</label>
       <input class="form-control" type="date" id="start" name="startDate"
@@ -76,6 +76,7 @@
               <th class="sort-arrow" (click)="callSortBy('strikePrice',!sortDir)">SP</th>
               <th class="sort-arrow" (click)="callSortBy('postionsVol',!sortDir)">V/CHI</th>
             </tr>
+            <tr *ngIf="callEquities == ''">No record found for above search....!</tr>
             {{callEquities.date}}
             <tr *ngFor="let equity of callEquities;let i = index">
               <td *ngIf="equity.oi >0  && equity.iv > 0">{{equity.date| date: 'dd/MM/yy'}}</td>
@@ -126,6 +127,7 @@
               <th>Vol</th>
               <th class="sort-arrow" (click)="putSortBy('strikePrice',!sortDir)">SP</th>
             </tr>
+            <tr *ngIf="putEquities == ''">No record found for above search....!</tr>
             <tr *ngFor="let equity of putEquities;let i = index">
               <td *ngIf="equity.oi >0  && equity.iv > 0">{{equity.postionsVol | number:'1.1-1'}}</td>
               <td *ngIf="equity.oi >0  && equity.iv > 0">{{equity.date | date: 'dd/MM/yy'}}</td>

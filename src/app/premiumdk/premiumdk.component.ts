@@ -13,10 +13,15 @@ export class PremiumdkComponent implements OnInit {
   equities: any[] = [];
   search: any = { strikePrice: null, startDate: null, endDate: null, type: 'CALL' };
   filtersRequest: Filters[] = [];
+  callYesterdayToday: Object[] = [];
+  putYesterdayToday: Object[] = [];
+  sortDir: boolean;
+
   constructor(private stockService:StockService) { }
 
   ngOnInit() {
     this.getCheckfilter();
+   // this.getYesterdayMinusToday();
   }
 
   getCheckfilter() {
@@ -29,7 +34,24 @@ export class PremiumdkComponent implements OnInit {
     this.search.filter = this.filtersRequest;
     this.stockService.getYesterdayMinusTodayByFilter(this.search)
       .subscribe(data => {
-          this.equities = data;
+        if (this.search.type == 'CALL') {
+          this.callYesterdayToday = data;
+        }
+        else
+          this.putYesterdayToday = data;
+      });
+  }
+
+  getYesterdayMinusTodayCall() {
+    this.search.filter = this.filtersRequest;
+    this.stockService.getYesterdayMinusTodayByFilter(this.search)
+      .subscribe(data => {
+          //this.equities = data;
+          if (this.search.type == 'CALL') {
+            this.callYesterdayToday = data;
+          }
+          else
+            this.putYesterdayToday = data;
       });
   }
 
@@ -50,5 +72,35 @@ export class PremiumdkComponent implements OnInit {
       this.search.endDate = value;
    // this.getEquities();
      this.getYesterdayMinusToday();
+  }
+
+  getData(value: any) {
+    this.search.type = value;
+    this.getYesterdayMinusTodayCall();
+  }
+
+  callSortBy(sortBy, sortDir?) {
+    this.sortDir = sortDir;
+    if (this.sortDir) {
+      this.callYesterdayToday.sort(function (a, b) {
+        return a[sortBy] - b[sortBy];
+      });
+    } else {
+      this.callYesterdayToday.sort(function (a, b) {
+        return b[sortBy] - a[sortBy];
+      });
+    }
+  }
+  putSortBy(sortBy, sortDir?) {
+    this.sortDir = sortDir;
+    if (this.sortDir) {
+      this.putYesterdayToday.sort(function (a, b) {
+        return a[sortBy] - b[sortBy];
+      });
+    } else {
+      this.putYesterdayToday.sort(function (a, b) {
+        return b[sortBy] - a[sortBy];
+      });
+    }
   }
 }

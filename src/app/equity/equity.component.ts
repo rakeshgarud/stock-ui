@@ -24,7 +24,7 @@ export class EquityComponent implements OnInit {
   ngOnInit() {
     this.getCheckfilter();
    // this.getSymbols();
-    this.getEquities();
+   // this.getEquities();
   }
 
   getCheckfilter() {

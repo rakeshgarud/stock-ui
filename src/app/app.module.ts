@@ -15,6 +15,7 @@ import { AllLoadDataComponent } from './all-load-data/all-load-data.component';
 import { StockOptionChainComponent } from './stock-option-chain/stock-option-chain.component';
 import { IntraDayComponent } from './intra-day/intra-day.component';
 import { YesterDayTodayComponent } from './yesterDay-today/yesterDay-today';
+import { PremiumDecayComponent } from './premium-decay/premium-decay.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { YesterDayTodayComponent } from './yesterDay-today/yesterDay-today';
     ActivityComponent,
     AllLoadDataComponent,
     StockOptionChainComponent,
-    IntraDayComponent
+    IntraDayComponent,
+    PremiumDecayComponent
   ],
   imports: [
     BrowserModule,

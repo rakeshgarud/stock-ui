@@ -6,6 +6,7 @@ import { AllLoadDataComponent } from './all-load-data/all-load-data.component';
 import { StockOptionChainComponent } from './stock-option-chain/stock-option-chain.component';
 import { IntraDayComponent } from './intra-day/intra-day.component';
 import { YesterDayTodayComponent } from './yesterDay-today/yesterDay-today';
+import { PremiumDecayComponent } from './premium-decay/premium-decay.component';
 
 const routes: Routes = [
   { path: '', component: AllLoadDataComponent },
@@ -14,7 +15,8 @@ const routes: Routes = [
   { path: 'equity', component: EquityComponent },
   { path: 'yesterday-today', component: YesterDayTodayComponent },
   { path: 'exchange-activity', component: ActivityComponent },
-  { path: 'intra-day', component: IntraDayComponent }
+  { path: 'intra-day', component: IntraDayComponent },
+  { path: 'premium-decay', component: PremiumDecayComponent }
   /* { path: 'all-data-download', component: AllLoadDataComponent } */
 ];
 

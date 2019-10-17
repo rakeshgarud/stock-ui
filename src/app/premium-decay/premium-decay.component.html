@@ -1,0 +1,101 @@
+<div class="stock-pan">
+  <div class="row">
+    <div class="col-md-10 ">
+      <h2> Premium Decay Calculation.</h2>
+    </div>
+   <!--  <div class="col-md-2">
+      <button class="btn btn-default" (click)="loadEquityData()"> Import Data</button>
+    </div> -->
+  </div>
+  <div class="row seperator">
+    <div class="col-md-12">
+      <div class="row seperator">
+      </div>
+    </div>
+  </div>
+  <div class="row seperator">
+    <div class="col-md-2">
+      <label for="start">Start date:</label>
+      <input class="form-control" type="date" id="start" name="startDate"
+        (change)="onDateChange($event.target.value,true)" />
+    </div>
+    <div class="col-md-2">
+      <label for="start">End date:</label>
+      <input class="form-control" type="date" id="end" name="endDate"
+        (change)="onDateChange($event.target.value,false)">
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-6">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="row">
+            <div class="col-md-10">
+              <h4>Call</h4>
+            </div>
+            <div class="col-md-1">
+              <button class="btn btn-info" (click)="getPremiumDecayData('CALL')"> Get Call</button>
+            </div>
+          </div>
+          <div class="row seperator"></div>
+          <table id="customers">
+            <tr>
+              <th >Date</th>
+              <th>OI</th>
+              <th>COI</th>
+              <th>IV</th>
+              <th>LTP</th>
+              <th>SP</th>
+              </tr>
+            <tr *ngIf="callEquities == ''">No record found for above search....!</tr>
+            {{callEquities.date}}
+            <tr *ngFor="let equity of callEquities;let i = index">
+              <td *ngIf="equity.oi >0  && equity.iv > 0">{{equity.date| date: 'dd/MM/yy'}}</td>
+              <td  *ngIf="equity.oi >0  && equity.iv > 0">{{equity.oi}}</td>
+              <td *ngIf="equity.oi >0  && equity.iv > 0">{{equity.chnginOI}}</td>
+              <td *ngIf="equity.oi >0  && equity.iv > 0">{{equity.iv}}</td>
+              <td *ngIf="equity.oi >0  && equity.iv > 0">{{equity.ltp}}</td>
+              <td *ngIf="equity.oi >0  && equity.iv > 0">{{equity.strikePrice}}</td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-6">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="row">
+            <div class="col-md-10">
+              <h4>PUT</h4>
+            </div>
+            <div class="col-md-1">
+              <button class="btn btn-info" (click)="getPremiumDecayData('PUT')"> Get Put</button>
+            </div>
+          </div>
+          <div class="row seperator"></div>
+          <table id="customers">
+            <tr>
+              <th>Date</th>
+              <th>OI</th>
+              <th>C-OI</th>
+              <th>IV</th>
+              <th>LTP</th>
+              <th>SP</th>
+            </tr>
+            <tr *ngIf="putEquities == ''">No record found for above search....!</tr>
+            <tr *ngFor="let equity of putEquities;let i = index">
+              <td *ngIf="equity.oi >0  && equity.iv > 0">{{equity.date | date: 'dd/MM/yy'}}</td>
+              <td *ngIf="equity.oi >0  && equity.iv > 0">{{equity.oi}}</td>
+              <td *ngIf="equity.oi >0  && equity.iv > 0">{{equity.chnginOI}}</td>
+              <td *ngIf="equity.oi >0  && equity.iv > 0">{{equity.iv}}</td>
+              <td *ngIf="equity.oi >0  && equity.iv > 0">{{equity.ltp}}</td>
+              <td *ngIf="equity.oi >0  && equity.iv > 0">{{equity.strikePrice}}</td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

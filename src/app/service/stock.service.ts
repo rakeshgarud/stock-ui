@@ -80,6 +80,10 @@ export class StockService {
     params = params.append("endTime", endTime);
     return this.http.post<Stock[]>(this.baseUrl + this.equityEndPoint + 'intraday',search, {params:params});
   }
+  getPremiumDecayByFilter(search : any) {
+    let params = new HttpParams();
+    return this.http.post<Stock[]>(this.baseUrl + this.equityEndPoint+ 'search/premium-decay' ,search);
+  }
   /* 
   createUser(user: Stock) {
     return this.http.post(this.baseUrl, user);

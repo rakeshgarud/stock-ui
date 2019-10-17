@@ -38,7 +38,7 @@ export class EquityComponent implements OnInit {
     this.stockservice.loadEquity().subscribe(data => {
     });
   }; */
-  getEquities() {
+  getNifty() {
     this.search.filter = this.filtersRequest;
     this.stockservice.getEquityByFilter(this.search)
       .subscribe(data => {
@@ -59,7 +59,7 @@ export class EquityComponent implements OnInit {
     } else {
       this.filtersRequest = this.filtersRequest.filter(item => item !== obj);
     }
-    this.getEquities();
+    this.getNifty();
   }
 
   /* symbolDropDown(symbol: any) {
@@ -74,7 +74,7 @@ export class EquityComponent implements OnInit {
   } */
   onStrikeChange(value: any) {
     this.search.strikePrice = value;
-    this.getEquities();
+    this.getNifty();
   }
 
   onDateChange(value: any, isStartDate) {
@@ -87,7 +87,7 @@ export class EquityComponent implements OnInit {
 
   getData(value: any) {
     this.search.type = value;
-    this.getEquities();
+    this.getNifty();
   }
 
   callSortBy(sortBy, sortDir?) {

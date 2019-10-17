@@ -61,7 +61,7 @@
              
               <tr *ngFor="let equity of callIntradayYesterdayToday;let i = index">
                 <td *ngIf="equity.postionsVol!=='NaN'">{{equity.postionsVol | number:'1.1-1'}}</td> 
-                <td>{{equity.date| date: 'dd/MM'}}</td>
+                <td>{{equity.date| date: 'hh-mm'}}</td>
                 <td><label>{{equity.oi}}</label>
                   <label *ngIf="equity.prevEquity!==null">{{equity.prevEquity.oi}}</label> 
                 </td>
@@ -112,14 +112,14 @@
                   <th class="sort-arrow" (click)="putSortBy('chnginOI',!sortDir)">C-OI</th>
                   <th>IV</th>
                   <th>LTP</th>
-                 <!--  <th>Net-C</th>
-                  <th>Vol</th> -->
+                  <th>Net-C</th>
+                  <th>Vol</th> 
                   <th class="sort-arrow" (click)="putSortBy('strikePrice',!sortDir)">SP</th>
                 </tr>
                 <tr *ngIf="putIntradayYesterdayToday == ''">No record found for above search....!</tr>
                 <tr *ngFor="let equity of putIntradayYesterdayToday;let i = index">
                     <td *ngIf="equity.postionsVol!=='NaN'">{{equity.postionsVol | number:'1.1-1'}}</td> 
-                    <td>{{equity.date| date: 'dd/MM'}}</td>
+                    <td>{{equity.date| date: 'hh-mm'}}</td>
                     <td><label class="strikethrough">{{equity.oi}}</label>
                       <label *ngIf="equity.prevEquity!==null">{{equity.prevEquity.oi}}</label>
                     </td>
@@ -130,8 +130,8 @@
                       <label *ngIf="equity.prevEquity!==null">{{equity.prevEquity.iv | number:'1.1-1'}}</label></td> 
                     <td><label class="strikethrough">{{equity.ltp | number:'1.1-1'}}</label>
                       <label *ngIf="equity.prevEquity!==null">{{equity.prevEquity.ltp| number:'1.1-1'}}</label></td> 
-                   <!--  <td>{{equity.netChng| number : '.4-4'}}</td>
-                    <td>{{equity.volume}}</td> -->
+                   <td>{{equity.netChng | number:'1.1-1'}}</td>
+                    <td>{{equity.volume}}</td> 
                     <td>{{equity.strikePrice}}</td>
                   </tr>
               </table>

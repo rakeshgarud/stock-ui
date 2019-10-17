@@ -53,8 +53,8 @@
               <th class="sort-arrow" (click)="callSortBy('chnginOI',!sortDir)">COI</th>
               <th>IV</th>
               <th>LTP</th>
-              <th>Net-C</th>
-              <th>Vol</th> 
+             <!--  <th>Net-C</th> -->
+              <th>Vol-Diff</th> 
               <th class="sort-arrow" (click)="callSortBy('strikePrice',!sortDir)">SP</th>
             </tr>
             <tr *ngIf="callYesterdayToday == ''">No record found for above search....!</tr>
@@ -65,15 +65,15 @@
                 <label *ngIf="equity.prevEquity!==null">{{equity.prevEquity.oi}}</label>
               </td>
               <td><label class="strikethrough">{{equity.chnginOI}}</label>
-                <label *ngIf="equity.prevEquity!==null">{{equity.prevEquity.chnginOI}}</label>
+                <label *ngIf="equity.prevEquity!==null">{{equity.prevEquity.chnginDif}}</label>
               </td>
               <td><label class="strikethrough">{{equity.iv | number:'1.1-1'}}</label>
                 <label *ngIf="equity.prevEquity!==null">{{equity.prevEquity.iv | number:'1.1-1'}}</label> 
               </td>
               <td><label class="strikethrough">{{equity.ltp | number:'1.1-1'}}</label>
-                <label *ngIf="equity.prevEquity!==null">{{equity.prevEquity.ltp | number:'1.1-1'}}</label> 
+                <!-- <label *ngIf="equity.prevEquity!==null">{{equity.prevEquity.ltp | number:'1.1-1'}}</label>  -->
               </td>
-              <td>{{equity.netChng | number:'1.1-1'}}</td>
+              <!-- <td>{{equity.netChng | number:'1.1-1'}}</td> -->
               <td>{{equity.volume}}</td>
               <td>{{equity.strikePrice}}</td> 
             </tr>
@@ -112,8 +112,8 @@
                 <th class="sort-arrow" (click)="putSortBy('chnginOI',!sortDir)">C-OI</th>
                 <th>IV</th>
                 <th>LTP</th>
-                <th>Net-C</th>
-                <th>Vol</th> 
+               <!--  <th>Net-C</th> -->
+                <th>Vol-Diff</th> 
                 <th class="sort-arrow" (click)="putSortBy('strikePrice',!sortDir)">SP</th>
               </tr>
               <tr *ngIf="putYesterdayToday == ''">No record found for above search....!</tr>
@@ -124,15 +124,15 @@
                     <label *ngIf="equity.prevEquity!==null">{{equity.prevEquity.oi}}</label>
                   </td>
                   <td><label class="strikethrough">{{equity.chnginOI}}</label>
-                    <label *ngIf="equity.prevEquity!==null">{{equity.prevEquity.chnginOI}}</label>
+                    <label *ngIf="equity.prevEquity!==null">{{equity.prevEquity.chnginDif}}</label>
                   </td>
                   <td><label class="strikethrough">{{equity.iv | number:'1.1-1'}}</label>
                     <label *ngIf="equity.prevEquity!==null">{{equity.prevEquity.iv | number:'1.1-1'}}</label>
                   </td>
                   <td><label class="strikethrough">{{equity.ltp | number:'1.1-1'}}</label>
-                     <label *ngIf="equity.prevEquity!==null">{{equity.prevEquity.ltp | number:'1.1-1'}}</label>
+                     <!-- <label *ngIf="equity.prevEquity!==null">{{equity.prevEquity.ltp | number:'1.1-1'}}</label> -->
                   </td>
-                  <td>{{equity.netChng | number:'1.1-1'}}</td>
+                 <!--  <td>{{equity.netChng | number:'1.1-1'}}</td> -->
                   <td>{{equity.volume}}</td> 
                   <td>{{equity.strikePrice}}</td>
                 </tr>

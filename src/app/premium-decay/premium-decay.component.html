@@ -48,8 +48,6 @@
               <th>LTP</th>
               <th>SP</th>
               </tr>
-            <tr *ngIf="callEquities == ''">No record found for above search....!</tr>
-            {{callEquities.date}}
             <tr *ngFor="let equity of callPremiumDecay;let i = index">
               <td *ngIf="equity.oi >0  && equity.iv > 0">{{equity.date| date: 'dd/MM/yy'}}</td>
               <td  *ngIf="equity.oi >0  && equity.iv > 0">{{equity.oi}}</td>
@@ -84,7 +82,6 @@
               <th>LTP</th>
               <th>SP</th>
             </tr>
-            <tr *ngIf="putEquities == ''">No record found for above search....!</tr>
             <tr *ngFor="let equity of putPremiumDecay;let i = index">
               <td *ngIf="equity.oi >0  && equity.iv > 0">{{equity.date | date: 'dd/MM/yy'}}</td>
               <td *ngIf="equity.oi >0  && equity.iv > 0">{{equity.oi}}</td>

@@ -21,6 +21,10 @@
         <input class="form-control" type="time" id="end" name="endDate"
           (change)="onDateChange($event.target.value,false)">
       </div>
+      <div class="col-md-2">
+          <label >Spot Price:</label>
+         <h4> {{callIntradayYesterdayToday[0].currentPrice}} </h4>
+        </div>
     </div>
     <div class="row">
       <div class="col-md-6">

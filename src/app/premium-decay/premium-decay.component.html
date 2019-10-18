@@ -24,11 +24,23 @@
       <input class="form-control" type="date" id="end" name="endDate"
         (change)="onDateChange($event.target.value,false)">
     </div>
+    <div class="col-md-2">
+        <label >Spot Price:</label>
+       <h4> {{callPremiumDecay[0].currentPrice}} </h4>
+      </div>
   </div>
+
+
 
   <div class="row">
     <div class="col-md-6">
       <div class="row">
+        <div class="col-md-12">
+              <div *ngFor="let chk of checkBoxFilter" class="checkbox check-container"
+                style="margin-left:10px; margin-right:10px;">
+                <label><input type="checkbox" (change)="checkValue($event.target.checked,chk,'CALL')">{{chk.name}}</label>
+              </div>
+          </div>
         <div class="col-md-12">
           <div class="row">
             <div class="col-md-10">
@@ -65,6 +77,12 @@
       <div class="row">
         <div class="col-md-12">
           <div class="row">
+              <div class="col-md-12">
+                  <div *ngFor="let chk of checkBoxFilter" class="checkbox check-container"
+                    style="margin-left:10px; margin-right:10px;">
+                    <label><input type="checkbox" (change)="checkValue($event.target.checked,chk,'PUT')">{{chk.name}}</label>
+                  </div>
+                </div>
             <div class="col-md-10">
               <h4>PUT</h4>
             </div>

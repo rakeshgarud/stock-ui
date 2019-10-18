@@ -52,4 +52,15 @@ export class PremiumDecayComponent implements OnInit {
       console.log("Loading Call data" + this.callPremiumDecay);
       console.log("Loading Put data " + this.putPremiumDecay);
   }
+
+  checkValue(event: any, obj: any, type: any) {
+    this.search.type = type;
+    if (event) {
+      this.filtersRequest.push(obj);
+    } else {
+      this.filtersRequest = this.filtersRequest.filter(item => item !== obj);
+    }
+    this.getNiftyPremiumDecay();
+  }
+
 }

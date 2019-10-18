@@ -4,8 +4,8 @@ import { StockService } from '../service/stock.service';
 
 @Component({
   selector: 'app-intra-day',
-  templateUrl: './intra-day.component.html'
-  /* styleUrls: ['./intra-day.component.css'] */
+  templateUrl: './intra-day.component.html',
+   styleUrls: ['./intra-day.component.css'] 
 })
 export class IntraDayComponent implements OnInit {
 
@@ -34,14 +34,6 @@ export class IntraDayComponent implements OnInit {
       this.checkBoxFilter = data;
     });
   }
-
-  /* getEquities() {
-    this.search.filter = this.filtersRequest;
-    this.stockService.getIntraDay(this.startTime,this.endTime,this.search)
-      .subscribe(data => {
-          this.equities = data;
-      });
-  } */
 
   getIntradayYesterdayMinusTodayCall() {
     this.search.filter = this.filtersRequest;

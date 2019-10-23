@@ -23,7 +23,7 @@
       </div>
       <div class="col-md-2">
           <label >Spot Price:</label>
-         <h4> {{callIntradayYesterdayToday[0].currentPrice}} </h4>
+         <h4 *ngIf="!callIntradayYesterdayToday"> {{callIntradayYesterdayToday[0].currentPrice}} </h4>
         </div>
     </div>
     <div class="row">
@@ -61,21 +61,26 @@
               <tr *ngFor="let equity of callIntradayYesterdayToday;let i = index">
 
                 <td>{{equity.date| date: 'hh-mm'}}</td>
-                <td *ngIf="equity.postionsVol!=='NaN'">{{equity.postionsVol | number:'1.1-1'}}</td> 
+                <td *ngIf="equity.postionsVol!=='NaN' &&  equity.prevEquity.postionsVol!=='NaN'">
+                  <!-- {{equity.postionsVol | number:'1.1-1'}} -->
+                  {{equity.prevEquity.postionsVol | number:'1.1-1'}}
+
+                </td> 
                 <td><label>{{equity.oi}}</label>
                 </td>
                 <td><label>{{equity.chnginOI}}</label>
-                   <label *ngIf="equity.prevEquity!==null">{{equity.prevEquity.chnginDif}}</label> 
+                   <!-- <label *ngIf="equity.prevEquity!==null">{{equity.prevEquity.chnginDif}}</label>  -->
+                   <label>{{equity.prevEquity.chnginDif}}</label>
                 </td>
                 <td>
                   <label>{{equity.volume | number:'1.1-1'}}</label>
-                   <label *ngIf="equity.prevEquity!==null">{{equity.prevEquity.volumeDif | number:'1.1-1'}}</label> 
+                   <label>{{equity.prevEquity.volumeDif | number:'1.1-1'}}</label> 
                 </td> 
-                <td><label>{{equity.iv | number:'1.1-1'}}</label>
-                   <label *ngIf="equity.prevEquity!==null">{{equity.prevEquity.iv | number:'1.1-1'}}</label> 
+                <td><label>{{equity.iv | number:'0.2'}}</label>
+                   <label>{{equity.prevEquity.iv | number:'0.2'}}</label> 
                 </td>
                 <td><label >{{equity.ltp | number:'1.1-1'}}</label>
-                   <label *ngIf="equity.prevEquity!==null">{{equity.prevEquity.ltp | number:'1.1-1'}}</label> 
+                   <label>{{equity.prevEquity.ltp | number:'1.1-1'}}</label> 
                 </td>
                 <td>{{equity.strikePrice}}</td>
               </tr>
@@ -117,25 +122,28 @@
                     <td>{{equity.strikePrice}}</td>
                     <td>
                         <label >{{equity.ltp | number:'1.1-1'}}</label>
-                        <label *ngIf="equity.prevEquity!==null">{{equity.prevEquity.ltp| number:'1.1-1'}}</label>
+                        <label>{{equity.prevEquity.ltp| number:'1.1-1'}}</label>
                     </td> 
                      <td>
-                          <label class="strikethrough">{{equity.iv | number:'1.1-1'}}</label>
-                          <label *ngIf="equity.prevEquity!==null">{{equity.prevEquity.iv | number:'1.1-1'}}</label>
+                          <label class="strikethrough">{{equity.iv | number:'0.2'}}</label>
+                          <label>{{equity.prevEquity.iv | number:'0.2'}}</label>
                     </td>
                     <td>
                         <label>{{equity.volume | number:'1.1-1'}}</label>
-                        <label *ngIf="equity.prevEquity!==null">{{equity.prevEquity.volumeDif | number:'1.1-1'}}</label>
+                        <label >{{equity.prevEquity.volumeDif | number:'1.1-1'}}</label>
                     </td> 
                     <td>
                         <label class="strikethrough">{{equity.chnginOI}}</label>
-                        <label *ngIf="equity.prevEquity!==null">{{equity.prevEquity.chnginOI}}</label>
+                        <label>{{equity.prevEquity.chnginDif}}</label>
                     </td>    
                     <td>
                       <label class="strikethrough">{{equity.oi}}</label>
-                      <label *ngIf="equity.prevEquity!==null">{{equity.prevEquity.oi}}</label>
+                      <!-- <label>{{equity.prevEquity.oi}}</label> -->
                     </td>
-                    <td *ngIf="equity.postionsVol!=='NaN'">{{equity.postionsVol | number:'1.1-1'}}</td> 
+                    <td *ngIf="equity.postionsVol!=='NaN' &&  equity.prevEquity.postionsVol!=='NaN'">
+                      <!-- {{equity.postionsVol | number:'1.1-1'}} -->
+                      {{equity.prevEquity.postionsVol | number:'1.1-1'}}
+                    </td> 
                     <td>{{equity.date| date: 'hh-mm'}}</td>
                   </tr>
               </table>

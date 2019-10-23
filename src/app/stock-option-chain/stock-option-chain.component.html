@@ -54,28 +54,30 @@
               <tr>
                 <th >Date</th>
                 <th >Symbol</th>
+                <th class="sort-arrow" (click)="callSortBy('postionsVol',!sortDir)">CHI/VOL</th>
                 <th class="sort-arrow" (click)="callSortBy('oi',!sortDir)">OI</th>
                 <th class="sort-arrow" (click)="callSortBy('chnginOI',!sortDir)">COI</th>
+                <th>Vol</th>
                 <th>IV</th>
                 <th>LTP</th>
-                <th>Net-C</th>
-                <th>Vol</th>
+                <!-- <th>Net-C</th> -->
                 <th class="sort-arrow" (click)="callSortBy('strikePrice',!sortDir)">SP</th>
-                <th class="sort-arrow" (click)="callSortBy('postionsVol',!sortDir)">CHI/VOL</th>
+                
               </tr>
               <tr *ngIf="callEquities == ''">No record found for above search....!</tr>
               <tr *ngFor="let equity of callEquities;let i = index">
-                <td *ngIf="equity.oi >0  && equity.iv > 0">{{equity.date| date: 'dd/MM/yy'}}</td>
-                <td  *ngIf="equity.oi >0  && equity.iv > 0">{{equity.symbol}}</td>
-                <td  *ngIf="equity.oi >0  && equity.iv > 0">{{equity.oi}}</td>
-                <td *ngIf="equity.oi >0  && equity.iv > 0">{{equity.chnginOI}}</td>
-                <td *ngIf="equity.oi >0  && equity.iv > 0">{{equity.iv}}</td>
-                <td *ngIf="equity.oi >0  && equity.iv > 0">{{equity.ltp}}</td>
-                <td *ngIf="equity.oi >0  && equity.iv > 0">{{equity.netChng}}</td>
-                <td *ngIf="equity.oi >0  && equity.iv > 0">{{equity.volume}}</td>
-                <td *ngIf="equity.oi >0  && equity.iv > 0">{{equity.strikePrice}}</td>
+                <td>{{equity.date| date: 'dd/MM'}}</td>
+                <td>{{equity.symbol}}</td>  
+                <td *ngIf="equity.postionsVol!=='NaN'">{{equity.postionsVol | number:'1.1-1'}}</td>
+                <td>{{equity.oi}}</td>
+                <td>{{equity.chnginOI}}</td>
+                <td>{{equity.volume}}</td>
+                <td>{{equity.iv}}</td>
+                <td>{{equity.ltp}}</td>
+               <!--  <td *ngIf="equity.oi >0  && equity.iv > 0">{{equity.netChng}}</td> -->
+                <td>{{equity.strikePrice}}</td>
                 <!-- <td *ngIf="equity.oi >0  && equity.iv > 0">{{equity.chnginOI / equity.volume | number:'1.1-1'}}</td> -->
-                <td *ngIf="equity.oi >0  && equity.iv > 0">{{equity.postionsVol | number:'1.1-1'}}</td>
+                
               </tr>
             </table>
           </div>
@@ -101,29 +103,31 @@
             <div class="row seperator"></div>
             <table id="customers">
               <tr>
-                <th class="sort-arrow" (click)="putSortBy('postionsVol',!sortDir)">CHI/VOL</th>
+                
                 <th>Date</th>
                 <th >Symbol</th>
+                <th class="sort-arrow" (click)="putSortBy('postionsVol',!sortDir)">CHI/VOL</th>
                 <th  class="sort-arrow" (click)="putSortBy('oi',!sortDir)">OI</th>
                 <th class="sort-arrow" (click)="putSortBy('chnginOI',!sortDir)">C-OI</th>
+                <th>Vol</th>
                 <th>IV</th>
                 <th>LTP</th>
-                <th>Net-C</th>
-                <th>Vol</th>
+               <!--  <th>Net-C</th> -->
+               
                 <th class="sort-arrow" (click)="putSortBy('strikePrice',!sortDir)">SP</th>
               </tr>
               <tr *ngIf="putEquities == ''">No record found for above search....!</tr>
               <tr *ngFor="let equity of putEquities;let i = index">
-                <td *ngIf="equity.oi >0  && equity.iv > 0">{{equity.postionsVol | number:'1.1-1'}}</td>
-                <td *ngIf="equity.oi >0  && equity.iv > 0">{{equity.date | date: 'dd/MM/yy'}}</td>
-                <td *ngIf="equity.oi >0  && equity.iv > 0">{{equity.symbol}}</td>
-                <td *ngIf="equity.oi >0  && equity.iv > 0">{{equity.oi}}</td>
-                <td *ngIf="equity.oi >0  && equity.iv > 0">{{equity.chnginOI}}</td>
-                <td *ngIf="equity.oi >0  && equity.iv > 0">{{equity.iv}}</td>
-                <td *ngIf="equity.oi >0  && equity.iv > 0">{{equity.ltp}}</td>
-                <td *ngIf="equity.oi >0  && equity.iv > 0">{{equity.netChng}}</td>
-                <td *ngIf="equity.oi >0  && equity.iv > 0">{{equity.volume}}</td>
-                <td *ngIf="equity.oi >0  && equity.iv > 0">{{equity.strikePrice}}</td>
+                <td>{{equity.date | date: 'dd/MM'}}</td>
+                <td>{{equity.symbol}}</td>
+                <td *ngIf="equity.postionsVol!=='NaN'">{{equity.postionsVol | number:'1.1-1'}}</td>
+                <td>{{equity.oi}}</td>
+                <td>{{equity.chnginOI}}</td>
+                <td>{{equity.volume}}</td>
+                <td>{{equity.iv}}</td>
+                <td>{{equity.ltp}}</td>
+               <!--  <td *ngIf="equity.oi >0  && equity.iv > 0">{{equity.netChng}}</td> -->
+                <td>{{equity.strikePrice}}</td>
               </tr>
             </table>
           </div>

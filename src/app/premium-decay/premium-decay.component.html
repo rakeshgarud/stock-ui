@@ -26,7 +26,7 @@
     </div>
     <div class="col-md-2">
         <label >Spot Price:</label>
-       <h4> {{callPremiumDecay[0].currentPrice}} </h4>
+       <h4 *ngIf="!callPremiumDecay"> {{callPremiumDecay[0].currentPrice}} </h4>
       </div>
   </div>
 
@@ -60,7 +60,7 @@
               <th class="word" >LTP</th>
               <th class="word" >SP</th>
             </tr>
-            <tr *ngFor="let equity of callPremiumDecay;let i = index">
+            <tr *ngFor="let equity of callPremiumDecay[0].Data;let i = index">
               <td *ngIf="equity.oi >0  && equity.iv > 0">{{equity.date| date: 'dd/MM/yy'}}</td>
               <td  *ngIf="equity.oi >0  && equity.iv > 0">{{equity.oi}}</td>
               <td *ngIf="equity.oi >0  && equity.iv > 0">{{equity.chnginOI}}</td>
@@ -101,7 +101,7 @@
               <th class="word">Date</th>
               
             </tr>
-            <tr *ngFor="let equity of putPremiumDecay;let i = index">
+            <tr *ngFor="let equity of putPremiumDecay.Data;let i = index">
               <td *ngIf="equity.oi >0  && equity.iv > 0">{{equity.strikePrice}}</td>
               <td *ngIf="equity.oi >0  && equity.iv > 0">{{equity.ltp}}</td>
               <td *ngIf="equity.oi >0  && equity.iv > 0">{{equity.iv}}</td>

@@ -65,7 +65,7 @@
                 
               </tr>
               <tr *ngIf="callEquities == ''">No record found for above search....!</tr>
-              <tr *ngFor="let equity of callEquities;let i = index">
+              <tr class="option" *ngFor="let equity of callEquities;let i = index">
                 <td>{{equity.date| date: 'dd/MM'}}</td>
                 <td>{{equity.symbol}}</td>  
                 <td *ngIf="equity.postionsVol!=='NaN'">{{equity.postionsVol | number:'1.1-1'}}</td>

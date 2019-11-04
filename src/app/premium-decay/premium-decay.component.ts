@@ -44,10 +44,14 @@ export class PremiumDecayComponent implements OnInit {
     this.stockservice.getPremiumDecayByFilter(this.search)
       .subscribe(data => {
         if (this.search.type == 'CALL') {
-          this.callPremiumDecay = data;
+          var list = JSON.parse(JSON.stringify(data));
+          console.log(list.Data);
+          this.callPremiumDecay = list.Data;
         }
         else
-          this.putPremiumDecay = data;
+        var list = JSON.parse(JSON.stringify(data));
+        console.log(list.Data);
+        this.putPremiumDecay = list.Data;
       });
       console.log("Loading Call data" + this.callPremiumDecay);
       console.log("Loading Put data " + this.putPremiumDecay);

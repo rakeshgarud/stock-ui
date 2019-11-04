@@ -5,7 +5,7 @@ import { StockService } from '../service/stock.service';
 @Component({
   selector: 'app-stock-option-chain',
   templateUrl: './stock-option-chain.component.html',
-  styleUrls: ['./stock-option-chain.component.css']
+  //styleUrls: ['./stock-option-chain.component.css']
 })
 export class StockOptionChainComponent implements OnInit {
 

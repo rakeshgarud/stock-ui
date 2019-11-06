@@ -38,7 +38,7 @@ export class StockService {
   loadEquity() {
     return this.http.get<Stock[]>(this.baseUrl + this.equityEndPoint+'load-nifty');
   }
-  getEquityByFilter(search : any) {
+  getNiftyByFilter(search : any) {
     let params = new HttpParams();
     return this.http.post<Stock[]>(this.baseUrl + this.equityEndPoint+ 'search/nifty' ,search);
   }
@@ -70,15 +70,22 @@ export class StockService {
   getSymbols() {
     return this.http.get<Filters[]>(this.baseUrl+ 'stock/symbol');
   }
+  getExpiryDates() {
+    return this.http.get<any[]>(this.baseUrl+ 'config/expiryDates');
+  }
   getStocksOptionsByFilter(search : any) {
     let params = new HttpParams();
     return this.http.post<Stock[]>(this.baseUrl + this.equityEndPoint+ 'search/stocksOptions' ,search);
+  }
+  exportStocksOptions(search : any) {
+    let params = new HttpParams();
+    return this.http.post<string>(this.baseUrl + this.equityEndPoint + 'stocksOptions.csv',search/* ,{ headers: { responseType: 'text' } } */);
   }
   getIntraDay(startTime:any,endTime:any,search : any) {
     let params = new HttpParams();
     params = params.append("startTime", startTime);
     params = params.append("endTime", endTime);
-    return this.http.post<Stock[]>(this.baseUrl + this.equityEndPoint + 'intraday',search, {params:params});
+    return this.http.post<Stock[]>(this.baseUrl + this.equityEndPoint + 'nifty/intraday',search, {params:params});
   }
   getPremiumDecayByFilter(search : any) {
     let params = new HttpParams();

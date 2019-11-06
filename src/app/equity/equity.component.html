@@ -36,12 +36,10 @@
       <span><input class="form-control" type="date" id="end" name="endDate"
           (change)="onDateChange($event.target.value,false)"></span>
       <b for="days">Expiry Date:</b>
-      <span><select class="form-control" (change)="symbolDropDown($event.target.value)">
-          <option value=''>
-            Nifty
-          </option>
-          <option *ngFor="let symbol of symbols" value={{symbol.symbol}}>
-            {{symbol.companyName}}
+      <span><select class="form-control" (change)="expiryDatesDropDown($event.target.value)">
+          <option  value="">Select date
+            </option>
+          <option *ngFor="let date of expiryDates" value={{date}}>{{date}}
           </option>
         </select></span>
     </div>
@@ -89,27 +87,27 @@
                 <td colspan="21">No record found for above search....!</td>
               </tr>
               <tr class="option" *ngFor="let equity of callEquities;let i = index">
-                <td *ngIf="equity.oi >0  && equity.iv > 0">{{equity.date| date: 'dd/MM/yy'}}</td>
-                <td *ngIf="equity.oi >0  && equity.iv > 0">{{equity.oi}}</td>
-                <td *ngIf="equity.oi >0  && equity.iv > 0">{{equity.chnginOI}}</td>
-                <td *ngIf="equity.oi >0  && equity.iv > 0">{{equity.iv}}</td>
-                <td *ngIf="equity.oi >0  && equity.iv > 0">{{equity.ltp}}</td>
-                <td *ngIf="equity.oi >0  && equity.iv > 0">{{equity.netChng}}</td>
-                <td *ngIf="equity.oi >0  && equity.iv > 0">{{equity.volume}}</td>
-                <td *ngIf="equity.oi >0  && equity.iv > 0" >{{equity.strikePrice}}</td>
-                <td *ngIf="equity.oi >0  && equity.iv > 0">{{equity.date| date: 'dd/MM/yy'}}</td>
-                <td *ngIf="equity.oi >0  && equity.iv > 0">{{equity.oi}}</td>
-                <td *ngIf="equity.oi >0  && equity.iv > 0" class="graybg" >{{equity.chnginOI}}</td>
-                <td *ngIf="equity.oi >0  && equity.iv > 0">{{equity.date| date: 'dd/MM/yy'}}</td>
-                <td *ngIf="equity.oi >0  && equity.iv > 0">{{equity.oi}}</td>
-                <td *ngIf="equity.oi >0  && equity.iv > 0">{{equity.chnginOI}}</td>
-                <td *ngIf="equity.oi >0  && equity.iv > 0">{{equity.date| date: 'dd/MM/yy'}}</td>
-                <td *ngIf="equity.oi >0  && equity.iv > 0">{{equity.oi}}</td>
-                <td *ngIf="equity.oi >0  && equity.iv > 0">{{equity.chnginOI}}</td>
-                <td *ngIf="equity.oi >0  && equity.iv > 0">{{equity.date| date: 'dd/MM/yy'}}</td>
-                <td *ngIf="equity.oi >0  && equity.iv > 0">{{equity.oi}}</td>
-                <td *ngIf="equity.oi >0  && equity.iv > 0">{{equity.chnginOI}}</td>
-                <td *ngIf="equity.oi >0  && equity.iv > 0">{{equity.postionsVol | number:'1.1-1'}}</td>
+                <td >{{equity.date| date: 'dd/MM/yy'}}</td>
+                <td >Alpha</td>
+                <td >Beta</td>
+                <td >theta</td>
+                <td >{{equity.oi}}</td>
+                <td >{{equity.chnginOI}}</td>
+                <td >{{equity.iv}}</td>
+                <td >{{equity.ltp}}</td>
+                <td >{{equity.netChng}}</td>
+                <td >{{equity.volume}}</td>
+                <td class="graybg" >{{equity.strikePrice}}</td>
+                <td >Alpha</td>
+                <td >Beta</td>
+                <td >theta</td>
+                <td >{{equity.put.oi}}</td>
+                <td >{{equity.put.chnginOI}}</td>
+                <td >{{equity.put.iv}}</td>
+                <td >{{equity.put.ltp}}</td>
+                <td >{{equity.put.netChng}}</td>
+                <td ><b *ngIf="equity.put.postionsVol!=='NaN'">{{equity.put.postionsVol | number:'1.1-1'}}</b></td>
+                <td >{{equity.put.volume}}</td>
               </tr>
             </tbody>
           </table>

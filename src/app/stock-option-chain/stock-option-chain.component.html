@@ -1,137 +1,148 @@
 <div class="stock-pan">
-    <div class="row">
-      <div class="col-md-10 ">
-        <h2> Stock Option Chain.</h2>
+  <div class="row">
+    <div class="col-md-10 ">
+      <h2> Stock Option Chain.</h2>
+    </div>
+  </div>
+  <div class="row seperator">
+    <div class="col-md-12">
+      <div class="row seperator">
       </div>
     </div>
-    <div class="row seperator">
-      <div class="col-md-12">
-        <div class="row seperator">
-        </div>
-      </div>
-    </div>
-    <div class="row seperator">
-      <div class="col-md-3">
-        <label for="days">Symbol:</label>
-        <select class="form-control" (change)="symbolDropDown($event.target.value)">
-           <option *ngFor="let symbol of symbols" value={{symbol.symbol}}>
+  </div>
+
+  <div class="row seperator srchpan">
+    <div class="col-md-12">
+      <label for="days">Symbol:</label>
+      <span><select class="form-control" (change)="symbolDropDown($event.target.value)">
+          <option *ngFor="let symbol of symbols" value={{symbol.symbol}}>
             {{symbol.companyName}}
           </option>
-        </select>
-      </div>
-      <div class="col-md-2">
-        <label for="start">Start date:</label>
-        <input class="form-control" type="date" id="start" name="startDate"
-          (change)="onDateChange($event.target.value,true)" />
-      </div>
-      <div class="col-md-2">
-        <label for="start">End date:</label>
-        <input class="form-control" type="date" id="end" name="endDate"
-          (change)="onDateChange($event.target.value,false)">
-      </div>
+        </select></span>
+      <b for="start">Start date:</b>
+      <span><input class="form-control" type="date" id="start" name="startDate"
+          (change)="onDateChange($event.target.value,true)" /></span>
+      <b for="start">End date:</b>
+      <span><input class="form-control" type="date" id="end" name="endDate"
+          (change)="onDateChange($event.target.value,false)"></span>
+      <b for="days">Expiry Date:</b>
+      <span><select class="form-control" (change)="expiryDatesDropDown($event.target.value)">
+          <option value="">Select date
+          </option>
+          <option *ngFor="let date of expiryDates" value={{date}}>{{date}}
+          </option>
+        </select></span>
     </div>
-    <div class="row seperator"></div>
-    <div class="row">
-      <div class="col-md-6">
-        <div class="row">
-          <div class="col-md-12">
-            <div *ngFor="let chk of checkBoxFilter" class="checkbox check-container"
-              style="margin-left:10px; margin-right:10px;">
-              <label><input type="checkbox" (change)="checkValue($event.target.checked,chk,'CALL')">{{chk.name}}</label>
-            </div>
+  </div>
+  <div class="row seperator"></div>
+  <div class="row">
+    <div class="col-md-12">
+      <div class="row">
+        <div class="col-md-12">
+          <div *ngFor="let chk of checkBoxFilter" class="checkbox check-container"
+            style="margin-left:10px; margin-right:10px;">
+            <label><input type="checkbox" (change)="checkValue($event.target.checked,chk,'CALL')">{{chk.name}}</label>
           </div>
-          <div class="col-md-12">
-            <div class="row">
-              <div class="col-md-10">
-                <h4>Call</h4>
-              </div>
-              <div class="col-md-1">
-                <button class="btn btn-info" (click)="getData('CALL')"> Get Call</button>
-              </div>
-            </div>
-            <div class="row seperator"></div>
-            <table id="customers">
+        </div>
+        <div class="col-md-12">
+          <div class="row seperator"></div>
+          <table id="customers">
+            <thead>
               <tr>
-                <th >Date</th>
-                <th >Symbol</th>
+                <th>Date</th>
+                <th>Symbol</th>
                 <th class="sort-arrow" (click)="callSortBy('postionsVol',!sortDir)">CHI/VOL</th>
                 <th class="sort-arrow" (click)="callSortBy('oi',!sortDir)">OI</th>
                 <th class="sort-arrow" (click)="callSortBy('chnginOI',!sortDir)">COI</th>
                 <th>Vol</th>
                 <th>IV</th>
                 <th>LTP</th>
-                <!-- <th>Net-C</th> -->
                 <th class="sort-arrow" (click)="callSortBy('strikePrice',!sortDir)">SP</th>
-                
-              </tr>
-              <tr *ngIf="callEquities == ''">No record found for above search....!</tr>
-              <tr class="option" *ngFor="let equity of callEquities;let i = index">
-                <td>{{equity.date| date: 'dd/MM'}}</td>
-                <td>{{equity.symbol}}</td>  
-                <td *ngIf="equity.postionsVol!=='NaN'">{{equity.postionsVol | number:'1.1-1'}}</td>
-                <td>{{equity.oi}}</td>
-                <td>{{equity.chnginOI}}</td>
-                <td>{{equity.volume}}</td>
-                <td>{{equity.iv}}</td>
-                <td>{{equity.ltp}}</td>
-               <!--  <td *ngIf="equity.oi >0  && equity.iv > 0">{{equity.netChng}}</td> -->
-                <td>{{equity.strikePrice}}</td>
-                <!-- <td *ngIf="equity.oi >0  && equity.iv > 0">{{equity.chnginOI / equity.volume | number:'1.1-1'}}</td> -->
-                
-              </tr>
-            </table>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-6">
-        <div class="row">
-          <div class="col-md-12">
-            <div *ngFor="let chk of checkBoxFilter" class="checkbox check-container"
-              style="margin-left:10px; margin-right:10px;">
-              <label><input type="checkbox" (change)="checkValue($event.target.checked,chk,'PUT')">{{chk.name}}</label>
-            </div>
-          </div>
-          <div class="col-md-12">
-            <div class="row">
-              <div class="col-md-10">
-                <h4>PUT</h4>
-              </div>
-              <div class="col-md-1">
-                <button class="btn btn-info" (click)="getData('PUT')"> Get Put</button>
-              </div>
-            </div>
-            <div class="row seperator"></div>
-            <table id="customers">
-              <tr>
-                
-                <th>Date</th>
-                <th >Symbol</th>
-                <th class="sort-arrow" (click)="putSortBy('postionsVol',!sortDir)">CHI/VOL</th>
-                <th  class="sort-arrow" (click)="putSortBy('oi',!sortDir)">OI</th>
-                <th class="sort-arrow" (click)="putSortBy('chnginOI',!sortDir)">C-OI</th>
+                <th class="sort-arrow" (click)="callSortBy('postionsVol',!sortDir)">CHI/VOL</th>
+                <th class="sort-arrow" (click)="callSortBy('oi',!sortDir)">OI</th>
+                <th class="sort-arrow" (click)="callSortBy('chnginOI',!sortDir)">COI</th>
                 <th>Vol</th>
                 <th>IV</th>
                 <th>LTP</th>
-               <!--  <th>Net-C</th> -->
-               
-                <th class="sort-arrow" (click)="putSortBy('strikePrice',!sortDir)">SP</th>
               </tr>
-              <tr *ngIf="putEquities == ''">No record found for above search....!</tr>
-              <tr *ngFor="let equity of putEquities;let i = index">
-                <td>{{equity.date | date: 'dd/MM'}}</td>
-                <td>{{equity.symbol}}</td>
-                <td *ngIf="equity.postionsVol!=='NaN'">{{equity.postionsVol | number:'1.1-1'}}</td>
-                <td>{{equity.oi}}</td>
-                <td>{{equity.chnginOI}}</td>
-                <td>{{equity.volume}}</td>
-                <td>{{equity.iv}}</td>
-                <td>{{equity.ltp}}</td>
-               <!--  <td *ngIf="equity.oi >0  && equity.iv > 0">{{equity.netChng}}</td> -->
-                <td>{{equity.strikePrice}}</td>
-              </tr>
-            </table>
-          </div>
+            </thead>
+            <tr *ngIf="callEquities == ''">No record found for above search....!</tr>
+            <tr class="option" *ngFor="let equity of callEquities;let i = index">
+              <td calss="callbg">{{equity.date| date: 'dd/MM'}}</td>
+              <td calss="callbg">{{equity.symbol}}</td>
+              <td calss="callbg">
+                <span *ngIf="equity.postionsVol!=='NaN'">{{equity.postionsVol | number:'1.1-1'}}</span>
+              </td>
+              <td calss="callbg">{{equity.oi}}</td>
+              <td calss="callbg">{{equity.chnginOI}}</td>
+              <td calss="callbg">{{equity.volume}}</td>
+              <td calss="callbg">{{equity.iv}}</td>
+              <td calss="callbg">{{equity.ltp}}</td>
+              <!--  <td *ngIf="equity.oi >0  && equity.iv > 0">{{equity.netChng}}</td> -->
+              <td class="graybg" >{{equity.strikePrice}}</td>
+              <!-- <td *ngIf="equity.oi >0  && equity.iv > 0">{{equity.chnginOI / equity.volume | number:'1.1-1'}}</td> -->
+              <td class="putbg">
+                  <span *ngIf="equity.put.postionsVol!=='NaN'">{{equity.put.postionsVol | number:'1.1-1'}}</span>
+                </td>
+              <td class="putbg">{{equity.put.oi}}</td>
+              <td class="putbg">{{equity.put.chnginOI}}</td>
+              <td class="putbg">{{equity.put.volume}}</td>
+              <td class="putbg">{{equity.put.iv}}</td>
+              <td class="putbg">{{equity.put.ltp}}</td>
+            </tr>
+          </table>
         </div>
       </div>
     </div>
+    <!-- <div class="col-md-6">
+      <div class="row">
+        <div class="col-md-12">
+          <div *ngFor="let chk of checkBoxFilter" class="checkbox check-container"
+            style="margin-left:10px; margin-right:10px;">
+            <label><input type="checkbox" (change)="checkValue($event.target.checked,chk,'PUT')">{{chk.name}}</label>
+          </div>
+        </div>
+        <div class="col-md-12">
+          <div class="row">
+            <div class="col-md-10">
+              <h4>PUT</h4>
+            </div>
+            <div class="col-md-1">
+              <button class="btn btn-info" (click)="getData('PUT')"> Get Put</button>
+            </div>
+          </div>
+          <div class="row seperator"></div>
+          <table id="customers">
+            <tr>
+
+              <th>Date</th>
+              <th>Symbol</th>
+              <th class="sort-arrow" (click)="putSortBy('postionsVol',!sortDir)">CHI/VOL</th>
+              <th class="sort-arrow" (click)="putSortBy('oi',!sortDir)">OI</th>
+              <th class="sort-arrow" (click)="putSortBy('chnginOI',!sortDir)">C-OI</th>
+              <th>Vol</th>
+              <th>IV</th>
+              <th>LTP</th>
+              <--  <th>Net-C</th> 
+
+              <th class="sort-arrow" (click)="putSortBy('strikePrice',!sortDir)">SP</th>
+            </tr>
+            <tr *ngIf="putEquities == ''">No record found for above search....!</tr>
+            <tr *ngFor="let equity of putEquities;let i = index">
+              <td>{{equity.date | date: 'dd/MM'}}</td>
+              <td>{{equity.symbol}}</td>
+              <td *ngIf="equity.postionsVol!=='NaN'">{{equity.postionsVol | number:'1.1-1'}}</td>
+              <td>{{equity.oi}}</td>
+              <td>{{equity.chnginOI}}</td>
+              <td>{{equity.volume}}</td>
+              <td>{{equity.iv}}</td>
+              <td>{{equity.ltp}}</td>
+              <--  <td *ngIf="equity.oi >0  && equity.iv > 0">{{equity.netChng}}</td> 
+              <td>{{equity.strikePrice}}</td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </div> -->
   </div>
+</div>

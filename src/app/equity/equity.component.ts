@@ -17,12 +17,14 @@ export class EquityComponent implements OnInit {
   callEquities: Object[] = [];
   putEquities: Object[] = [];
   sortDir: boolean;
+  expiryDates: any[]=[];
 
   search: any = { strikePrice: null, startDate: null, endDate: null, type: 'CALL' };
   constructor(private stockservice: StockService) { }
 
   ngOnInit() {
     this.getCheckfilter();
+    this.getExpiryDates();
    // this.getSymbols();
    // this.getEquities();
   }
@@ -38,9 +40,14 @@ export class EquityComponent implements OnInit {
     this.stockservice.loadEquity().subscribe(data => {
     });
   }; */
+  getExpiryDates() {
+    this.stockservice.getExpiryDates().subscribe(data => {
+      this.expiryDates = data;
+    });
+  }
   getNifty() {
     this.search.filter = this.filtersRequest;
-    this.stockservice.getEquityByFilter(this.search)
+    this.stockservice.getNiftyByFilter(this.search)
       .subscribe(data => {
         if (this.search.type == 'CALL') {
           this.callEquities = data;
@@ -62,10 +69,10 @@ export class EquityComponent implements OnInit {
     this.getNifty();
   }
 
-  /* symbolDropDown(symbol: any) {
-    this.search.symbol = symbol;
-    this.getEquities();
-  } */
+  expiryDatesDropDown(date: any) {
+    this.search.expiryDate = date;
+    this.getNifty();
+  }
 
   /* getSymbols() {
     this.stockservice.getSymbols().subscribe(data => {

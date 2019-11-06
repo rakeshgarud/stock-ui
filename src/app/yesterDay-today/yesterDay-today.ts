@@ -16,11 +16,13 @@ export class YesterDayTodayComponent implements OnInit {
   callYesterdayToday: Object[] = [];
   putYesterdayToday: Object[] = [];
   sortDir: boolean;
+  expiryDates: any[]=[];
 
   constructor(private stockService:StockService) { }
 
   ngOnInit() {
     this.getCheckfilter();
+    this.getExpiryDates();
    // this.getYesterdayMinusToday();
   }
 
@@ -58,6 +60,17 @@ export class YesterDayTodayComponent implements OnInit {
       console.log("putdata--> " +this.putYesterdayToday);
   }
 
+  getExpiryDates() {
+    this.stockService.getExpiryDates().subscribe(data => {
+      this.expiryDates = data;
+    });
+  }
+
+  expiryDatesDropDown(date: any) {
+    this.search.expiryDate = date;
+    this.getYesterdayMinusToday();
+  }
+
   checkValue(event: any, obj: any, type: any) {
     this.search.type = type;
     if (event) {
@@ -71,10 +84,11 @@ export class YesterDayTodayComponent implements OnInit {
   onDateChange(value: any, isStartDate) {
     if (isStartDate) {
       this.search.startDate = value;
-    } else
+    } else {
       this.search.endDate = value;
+    }
    // this.getEquities();
-   //  this.getYesterdayMinusToday();
+   this.getYesterdayMinusToday();
   }
 
   getData(value: any) {

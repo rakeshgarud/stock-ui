@@ -10,42 +10,57 @@
       </div>
     </div>
   </div>
-  <div class="row seperator">
-    <div class="col-md-2">
-      <label for="start">Start date:</label>
-      <input class="form-control" type="date" id="start" name="startDate"
-        (change)="onDateChange($event.target.value,true)" />
+  <div class="row seperator srchpan">
+      <div class="col-md-12">
+        <b>Strike Price:</b>
+        <span style="width: 77px;"><input class="form-control" type="text" id="strikePrice" name="strikePrice"
+            (change)="onStrikeChange($event.target.value)"></span>
+        <!-- <div class="col-md-3">
+        <label for="days">Symbol:</label>
+        <select class="form-control" (change)="symbolDropDown($event.target.value)">
+            <option value=''>
+                Nifty
+              </option>
+          <option *ngFor="let symbol of symbols" value={{symbol.symbol}}>
+            {{symbol.companyName}}
+          </option>
+        </select>
+      </div> -->
+        <b for="start">Start date:</b>
+        <span><input class="form-control" type="date" id="start" name="startDate"
+            (change)="onDateChange($event.target.value,true)" /></span>
+        <b for="start">End date:</b>
+        <span><input class="form-control" type="date" id="end" name="endDate"
+            (change)="onDateChange($event.target.value,false)"></span>
+        <b for="days">Expiry Date:</b>
+        <span><select class="form-control" (change)="expiryDatesDropDown($event.target.value)">
+            <option  value="">Select date
+              </option>
+            <option *ngFor="let date of expiryDates" value={{date}}>{{date}}
+            </option>
+          </select></span>
+      </div>
     </div>
-    <div class="col-md-2">
-      <label for="start">End date:</label>
-      <input class="form-control" type="date" id="end" name="endDate"
-        (change)="onDateChange($event.target.value,false)">
-    </div>
-  </div>
   <div class="row">
-    <div class="col-md-6">
+    <div class="col-md-12">
       <div class="row">
         <div class="col-md-12">
           <div *ngFor="let chk of checkBoxFilter" class="checkbox check-container"
             style="margin-left:10px; margin-right:10px;">
             <label><input type="checkbox" (change)="checkValue($event.target.checked,chk,'CALL')">{{chk.name}}</label>
-            <!-- <label class="switch" style="margin-left:10px;margin-top: 9px;">
-              <input type="checkbox" checked (change)="directionValue($event.target.checked,chk)">
-              <span class="slider round"></span>
-            </label> -->
           </div>
         </div>
         <div class="col-md-12">
-          <div class="row">
-              <div class="col-md-10">
-                  <h4>Call</h4>
-                </div>
-                <div class="col-md-1">
-                  <button class="btn btn-info" (click)="getData('CALL')"> Get Call</button>
-                </div>
-          </div>
+         <!--  <div class="row">
+            <div class="col-md-10">
+              <h4>Call</h4>
+            </div>
+            <div class="col-md-1">
+              <button class="btn btn-info" (click)="getData('CALL')"> Get Call</button>
+            </div>
+          </div> -->
           <div class="row seperator"></div>
-          <table id="equityTable">
+          <table id="equityTable" hidden="true">
             <tr>
               <th class="sort-arrow" (click)="callSortBy('postionsVol',!sortDir)">Chg-Vol</th>
               <th>Date</th>
@@ -53,8 +68,8 @@
               <th class="sort-arrow" (click)="callSortBy('chnginOI',!sortDir)">COI</th>
               <th>IV</th>
               <th>LTP</th>
-             <!--  <th>Net-C</th> -->
-              <th>Vol-Diff</th> 
+              <!--  <th>Net-C</th> -->
+              <th>Vol-Diff</th>
               <th class="sort-arrow" (click)="callSortBy('strikePrice',!sortDir)">SP</th>
             </tr>
             <tr *ngIf="callYesterdayToday == ''">No record found for above search....!</tr>
@@ -68,30 +83,98 @@
                 <label *ngIf="equity.prevEquity!==null">{{equity.prevEquity.chnginDif}}</label>
               </td>
               <td><label class="strikethrough">{{equity.iv | number:'1.1-1'}}</label>
-                <label *ngIf="equity.prevEquity!==null">{{equity.prevEquity.iv | number:'1.1-1'}}</label> 
+                <label *ngIf="equity.prevEquity!==null">{{equity.prevEquity.iv | number:'1.1-1'}}</label>
               </td>
               <td><label class="strikethrough">{{equity.ltp | number:'1.1-1'}}</label>
                 <!-- <label *ngIf="equity.prevEquity!==null">{{equity.prevEquity.ltp | number:'1.1-1'}}</label>  -->
               </td>
               <!-- <td>{{equity.netChng | number:'1.1-1'}}</td> -->
               <td>{{equity.volume}}</td>
-              <td>{{equity.strikePrice}}</td> 
+              <td>{{equity.strikePrice}}</td>
             </tr>
+          </table>
+          <table id="customers" class="fixedTbl">
+            <thead>
+              <tr>
+                <th>Date</th>
+                <th>Alpha</th>
+                <th>Bita</th>
+                <th>Thita</th>
+                <th class="sort-arrow" (click)="callSortBy('oi',!sortDir)">OI</th>
+                <th class="sort-arrow" (click)="callSortBy('chnginOI',!sortDir)">COI</th>
+                <th>IV</th>
+                <th>LTP</th>
+                <th>Net-C</th>
+                <th>Vol</th>
+                <th class="sort-arrow" style="font: bold" (click)="callSortBy('strikePrice',!sortDir)">SP</th>
+                <th>Alpha</th>
+                <th>Bita</th>
+                <th>Thita</th>
+                <th class="sort-arrow" (click)="callSortBy('postionsVol',!sortDir)">V/CHI</th>
+                <th class="sort-arrow" (click)="putSortBy('oi',!sortDir)">OI</th>
+                <th class="sort-arrow" (click)="putSortBy('chnginOI',!sortDir)">C-OI</th>
+                <th>IV</th>
+                <th>LTP</th>
+                <th>Net-C</th>
+                <th>Vol</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngIf="callYesterdayToday == ''">
+                <td colspan="21">No record found for above search....!</td>
+              </tr>
+              <tr class="option" *ngFor="let equity of callYesterdayToday;let i = index">
+                <td>{{equity.date| date: 'dd/MM/yy'}}</td>
+                <td>Alpha</td>
+                <td>Beta</td>
+                <td>theta</td>
+                <td><label class="strikethrough">{{equity.oi}}</label>
+                  <label *ngIf="equity.prevEquity!==null">{{equity.prevEquity.oi}}</label>
+                </td>
+                <td><label class="strikethrough">{{equity.chnginOI}}</label>
+                  <label *ngIf="equity.prevEquity!==null">{{equity.prevEquity.chnginDif}}</label>
+                </td>
+                <td><label class="strikethrough">{{equity.iv}}</label>
+                  <label *ngIf="equity.prevEquity!==null">{{equity.prevEquity.iv| number:'1.1-1'}}</label>
+                </td>
+                <td><label class="strikethrough">{{equity.ltp}}</label>
+                  <label *ngIf="equity.prevEquity!==null">{{equity.prevEquity.ltp| number:'1.1-1'}}</label>
+                </td>
+                <td>{{equity.netChng}}</td>
+                <td>{{equity.volume}}</td>
+                <td class="graybg">{{equity.strikePrice}}</td>
+                <td>Alpha</td>
+                <td>Beta</td>
+                <td>theta</td>
+                <td><label class="strikethrough">{{equity.put.oi}}</label>
+                  <label *ngIf="equity.prevEquity!==null">{{equity.put.prevEquity.oi}}</label>
+                </td>
+                <td><label class="strikethrough">{{equity.put.chnginOI}}</label>
+                  <label *ngIf="equity.prevEquity!==null">{{equity.put.prevEquity.chnginDif}}</label>
+                </td>
+                <td><label class="strikethrough">{{equity.put.iv| number:'1.1-1'}}</label>
+                  <label *ngIf="equity.prevEquity!==null">{{equity.put.prevEquity.iv| number:'1.1-1'}}</label>
+                </td>
+                <td><label class="strikethrough">{{equity.put.ltp| number:'1.1-1'}}</label>
+                  <label *ngIf="equity.prevEquity!==null">{{equity.put.prevEquity.ltp| number:'1.1-1'}}</label>
+                </td>
+                <td><span *ngIf="equity.put.postionsVol!=='NaN'">{{equity.put.postionsVol | number:'1.1-1'}}</span></td>
+                <td>{{equity.put.netChng}}</td>
+                <td>{{equity.put.volume}}</td>
+              </tr>
+            </tbody>
           </table>
         </div>
       </div>
     </div>
 
-    <div class="col-md-6">
+    <!-- <div class="col-md-6">
         <div class="row">
           <div class="col-md-12">
             <div *ngFor="let chk of checkBoxFilter" class="checkbox check-container"
               style="margin-left:10px; margin-right:10px;">
               <label><input type="checkbox" (change)="checkValue($event.target.checked,chk,'PUT')">{{chk.name}}</label>
-              <!-- <label class="switch" style="margin-left:10px;margin-top: 9px;">
-                <input type="checkbox" checked (change)="directionValue($event.target.checked,chk)">
-                <span class="slider round"></span>
-              </label> -->
+              
             </div>
           </div>
           <div class="col-md-12">
@@ -112,7 +195,6 @@
                 <th class="sort-arrow" (click)="putSortBy('chnginOI',!sortDir)">C-OI</th>
                 <th>IV</th>
                 <th>LTP</th>
-               <!--  <th>Net-C</th> -->
                 <th>Vol-Diff</th> 
                 <th class="sort-arrow" (click)="putSortBy('strikePrice',!sortDir)">SP</th>
               </tr>
@@ -130,15 +212,15 @@
                     <label *ngIf="equity.prevEquity!==null">{{equity.prevEquity.iv | number:'1.1-1'}}</label>
                   </td>
                   <td><label class="strikethrough">{{equity.ltp | number:'1.1-1'}}</label>
-                     <!-- <label *ngIf="equity.prevEquity!==null">{{equity.prevEquity.ltp | number:'1.1-1'}}</label> -->
+                     <label *ngIf="equity.prevEquity!==null">{{equity.prevEquity.ltp | number:'1.1-1'}}</label>
                   </td>
-                 <!--  <td>{{equity.netChng | number:'1.1-1'}}</td> -->
+                 <td>{{equity.netChng | number:'1.1-1'}}</td>
                   <td>{{equity.volume}}</td> 
                   <td>{{equity.strikePrice}}</td>
                 </tr>
             </table>
           </div>
         </div>
-      </div>
-    </div>
+      </div> -->
+  </div>
 </div>

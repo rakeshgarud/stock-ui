@@ -1,156 +1,180 @@
 <div class="stock-pan">
-    <div class="row">
-      <div class="col-md-10 ">
-        <h2> Intraday 8 mins difference.</h2>
-      </div>
+  <div class="row">
+    <div class="col-md-10 ">
+      <h2> Intraday 8 mins difference.</h2>
     </div>
-    <div class="row seperator">
-      <div class="col-md-12">
-        <div class="row seperator">
-        </div>
-      </div>
-    </div>
-    <div class="row seperator">
-      <div class="col-md-2">
-        <label for="start">Start Time:</label>
-        <input class="form-control" type="time" id="start" name="startDate"
-          (change)="onDateChange($event.target.value,true)" />
-      </div>
-      <div class="col-md-2">
-        <label for="start">End Time:</label>
-        <input class="form-control" type="time" id="end" name="endDate"
-          (change)="onDateChange($event.target.value,false)">
-      </div>
-      <div class="col-md-2">
-          <label >Spot Price:</label>
-         <h4 *ngIf="!callIntradayYesterdayToday"> {{callIntradayYesterdayToday[0].currentPrice}} </h4>
-        </div>
-    </div>
-    <div class="row">
-      <div class="col-md-6">
-        <div class="row">
-          <div class="col-md-12">
-            <div *ngFor="let chk of checkBoxFilter" class="checkbox check-container"
-              style="margin-left:10px; margin-right:10px;">
-              <label><input type="checkbox" (change)="checkValue($event.target.checked,chk,'CALL')">{{chk.name}}</label>
-            </div>
-          </div>
-          <div class="col-md-12">
-            <div class="row">
-                <div class="col-md-10">
-                    <h4>Call</h4>
-                  </div>
-                  <div class="col-md-1">
-                    <button class="btn btn-info" (click)="getData('CALL')"> Get Call</button>
-                  </div>
-            </div>
-            <div class="row seperator"></div>
-            <table id="equityTable">
-              <tr>
-                <th class="word">Date</th>
-                <th class="word" (click)="callSortBy('postionsVol',!sortDir)">Chg-Vol</th> 
-                <th class="word" (click)="callSortBy('oi',!sortDir)">OI</th>
-                <th class="word" (click)="callSortBy('chnginOI',!sortDir)">COI</th>
-                <th class="word" (click)="callSortBy('volume',!sortDir)">Volume</th>
-                <th class="word">IV</th>
-                <th class="word">LTP</th>
-                <th class="word" (click)="callSortBy('strikePrice',!sortDir)">SP</th>
-              </tr>
-              <tr *ngIf="callIntradayYesterdayToday == ''">No record found for above search....!</tr>
-             
-              <tr *ngFor="let equity of callIntradayYesterdayToday;let i = index">
-
-                <td>{{equity.date| date: 'hh-mm'}}</td>
-                <td *ngIf="equity.postionsVol!=='NaN' &&  equity.prevEquity.postionsVol!=='NaN'">
-                  <!-- {{equity.postionsVol | number:'1.1-1'}} -->
-                  {{equity.prevEquity.postionsVol | number:'1.1-1'}}
-
-                </td> 
-                <td><label>{{equity.oi}}</label>
-                </td>
-                <td><label>{{equity.chnginOI}}</label>
-                   <!-- <label *ngIf="equity.prevEquity!==null">{{equity.prevEquity.chnginDif}}</label>  -->
-                   <label>{{equity.prevEquity.chnginDif}}</label>
-                </td>
-                <td>
-                  <label>{{equity.volume | number:'1.1-1'}}</label>
-                   <label>{{equity.prevEquity.volumeDif | number:'1.1-1'}}</label> 
-                </td> 
-                <td><label>{{equity.iv | number:'0.2'}}</label>
-                   <label>{{equity.prevEquity.iv | number:'0.2'}}</label> 
-                </td>
-                <td><label >{{equity.ltp | number:'1.1-1'}}</label>
-                   <label>{{equity.prevEquity.ltp | number:'1.1-1'}}</label> 
-                </td>
-                <td>{{equity.strikePrice}}</td>
-              </tr>
-            </table>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-6">
-          <div class="row">
-            <div class="col-md-12">
-              <div *ngFor="let chk of checkBoxFilter" class="checkbox check-container"
-                style="margin-left:10px; margin-right:10px;">
-                <label><input type="checkbox" (change)="checkValue($event.target.checked,chk,'PUT')">{{chk.name}}</label>
-              </div>
-            </div>
-            <div class="col-md-12">
-              <div class="row">
-                <div class="col-md-10">
-                  <h4>PUT</h4>
-                </div>
-                <div class="col-md-1">
-                  <button class="btn btn-info" (click)="getData('PUT')"> Get Put</button>
-                </div>
-              </div>
-              <div class="row seperator"></div>
-              <table id="equityTable">
-                <tr class="word">
-                  <th class="word" (click)="putSortBy('strikePrice',!sortDir)">SP</th>
-                  <th class="word">LTP</th>
-                  <th class="word">IV</th>
-                  <th class="word" (click)="putSortBy('volume',!sortDir)">Volume</th> 
-                  <th class="word" (click)="putSortBy('chnginOI',!sortDir)">C-OI</th>
-                  <th  class="word" (click)="putSortBy('oi',!sortDir)">OI</th>
-                  <th class="word" (click)="putSortBy('postionsVol',!sortDir)">Chg-Vol</th> 
-                  <th class="word">Date</th>
-                </tr>
-                <tr *ngFor="let equity of putIntradayYesterdayToday;let i = index">
-
-                    <td>{{equity.strikePrice}}</td>
-                    <td>
-                        <label >{{equity.ltp | number:'1.1-1'}}</label>
-                        <label>{{equity.prevEquity.ltp| number:'1.1-1'}}</label>
-                    </td> 
-                     <td>
-                          <label class="strikethrough">{{equity.iv | number:'0.2'}}</label>
-                          <label>{{equity.prevEquity.iv | number:'0.2'}}</label>
-                    </td>
-                    <td>
-                        <label>{{equity.volume | number:'1.1-1'}}</label>
-                        <label >{{equity.prevEquity.volumeDif | number:'1.1-1'}}</label>
-                    </td> 
-                    <td>
-                        <label class="strikethrough">{{equity.chnginOI}}</label>
-                        <label>{{equity.prevEquity.chnginDif}}</label>
-                    </td>    
-                    <td>
-                      <label class="strikethrough">{{equity.oi}}</label>
-                      <!-- <label>{{equity.prevEquity.oi}}</label> -->
-                    </td>
-                    <td *ngIf="equity.postionsVol!=='NaN' &&  equity.prevEquity.postionsVol!=='NaN'">
-                      <!-- {{equity.postionsVol | number:'1.1-1'}} -->
-                      {{equity.prevEquity.postionsVol | number:'1.1-1'}}
-                    </td> 
-                    <td>{{equity.date| date: 'hh-mm'}}</td>
-                  </tr>
-              </table>
-            </div>
-          </div>
-        </div>
-
-
-      </div>
   </div>
+  <div class="row seperator">
+    <div class="col-md-12">
+      <div class="row seperator">
+      </div>
+    </div>
+  </div>
+  <div class="row seperator srchpan">
+    <div class="col-md-12">
+      <b>Strike Price:</b>
+      <span style="width: 77px;"><input class="form-control" type="text" id="strikePrice" name="strikePrice"
+          (change)="onStrikeChange($event.target.value)"></span>
+      <!-- <div class="col-md-3">
+          <label for="days">Symbol:</label>
+          <select class="form-control" (change)="symbolDropDown($event.target.value)">
+              <option value=''>
+                  Nifty
+                </option>
+            <option *ngFor="let symbol of symbols" value={{symbol.symbol}}>
+              {{symbol.companyName}}
+            </option>
+          </select>
+        </div> -->
+      <b for="start">Start date:</b>
+      <span><input class="form-control" type="time" id="start" name="startDate"
+          (change)="onDateChange($event.target.value,true)" /></span>
+      <b for="start">End date:</b>
+      <span><input class="form-control" type="time" id="end" name="endDate"
+          (change)="onDateChange($event.target.value,false)"></span>
+      <b for="days">Expiry Date:</b>
+      <span><select class="form-control" (change)="expiryDatesDropDown($event.target.value)">
+          <option value="">Select date
+          </option>
+          <option *ngFor="let date of expiryDates" value={{date}}>{{date}}
+          </option>
+        </select></span>
+    </div>
+  </div>
+  <div class="row">
+      <div class="col-md-12">
+          <div *ngFor="let chk of checkBoxFilter" class="checkbox check-container"
+            style="margin-left:10px; margin-right:10px;">
+            <label><input type="checkbox" (change)="checkValue($event.target.checked,chk,'CALL')">{{chk.name}}</label>
+          </div>
+        </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="row seperator"></div>
+          <table id="equityTable" class="fixedTbl">
+              <thead>
+                <tr>
+                  <th>Date</th>
+                  <th>Alpha</th>
+                  <th>Bita</th>
+                  <th>Thita</th>
+                  <th class="sort-arrow" (click)="callSortBy('oi',!sortDir)">OI</th>
+                  <th class="sort-arrow" (click)="callSortBy('chnginOI',!sortDir)">COI</th>
+                  <th>IV</th>
+                  <th>LTP</th>
+                  <th>Net-C</th>
+                  <th>Vol</th>
+                  <th class="sort-arrow" style="font: bold" (click)="callSortBy('strikePrice',!sortDir)">SP</th>
+                  <th>Alpha</th>
+                  <th>Bita</th>
+                  <th>Thita</th>
+                  <th class="sort-arrow" (click)="callSortBy('postionsVol',!sortDir)">V/CHI</th>
+                  <th class="sort-arrow" (click)="putSortBy('oi',!sortDir)">OI</th>
+                  <th class="sort-arrow" (click)="putSortBy('chnginOI',!sortDir)">C-OI</th>
+                  <th>IV</th>
+                  <th>LTP</th>
+                  <th>Net-C</th>
+                  <th>Vol</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngIf="callEquities == ''">
+                  <td colspan="21">No record found for above search....!</td>
+                </tr>
+                <tr class="option" *ngFor="let equity of callIntradayYesterdayToday;let i = index">
+                  <td >{{equity.date| date: 'dd/MM/yy'}}</td>
+                  <td >Alpha</td>
+                  <td >Beta</td>
+                  <td >theta</td>
+                  <td >{{equity.oi}}</td>
+                  <td >{{equity.chnginOI}}</td>
+                  <td >{{equity.iv}}</td>
+                  <td >{{equity.ltp}}</td>
+                  <td >{{equity.netChng}}</td>
+                  <td >{{equity.volume}}</td>
+                  <td class="graybg" >{{equity.strikePrice}}</td>
+                  <td >Alpha</td>
+                  <td >Beta</td>
+                  <td >theta</td>
+                  <td >{{equity.put.oi}}</td>
+                  <td >{{equity.put.chnginOI}}</td>
+                  <td >{{equity.put.iv}}</td>
+                  <td >{{equity.put.ltp}}</td>
+                  <td >{{equity.put.netChng}}</td>
+                  <td ><b *ngIf="equity.put.postionsVol!=='NaN'">{{equity.put.postionsVol | number:'1.1-1'}}</b></td>
+                  <td >{{equity.put.volume}}</td>
+                </tr>
+              </tbody>
+            </table>
+        </div>
+      </div>
+    </div>
+    <!-- <div class="col-md-6">
+      <div class="row">
+        <div class="col-md-12">
+          <div *ngFor="let chk of checkBoxFilter" class="checkbox check-container"
+            style="margin-left:10px; margin-right:10px;">
+            <label><input type="checkbox" (change)="checkValue($event.target.checked,chk,'PUT')">{{chk.name}}</label>
+          </div>
+        </div>
+        <div class="col-md-12">
+          <div class="row">
+            <div class="col-md-10">
+              <h4>PUT</h4>
+            </div>
+            <div class="col-md-1">
+              <button class="btn btn-info" (click)="getData('PUT')"> Get Put</button>
+            </div>
+          </div>
+          <div class="row seperator"></div>
+          <table id="equityTable">
+            <tr class="word">
+              <th class="word" (click)="putSortBy('strikePrice',!sortDir)">SP</th>
+              <th class="word">LTP</th>
+              <th class="word">IV</th>
+              <th class="word" (click)="putSortBy('volume',!sortDir)">Volume</th>
+              <th class="word" (click)="putSortBy('chnginOI',!sortDir)">C-OI</th>
+              <th class="word" (click)="putSortBy('oi',!sortDir)">OI</th>
+              <th class="word" (click)="putSortBy('postionsVol',!sortDir)">Chg-Vol</th>
+              <th class="word">Date</th>
+            </tr>
+            <tr *ngFor="let equity of putIntradayYesterdayToday;let i = index">
+
+              <td>{{equity.strikePrice}}</td>
+              <td>
+                <label>{{equity.ltp | number:'1.1-1'}}</label>
+                <label>{{equity.prevEquity.ltp| number:'1.1-1'}}</label>
+              </td>
+              <td>
+                <label class="strikethrough">{{equity.iv | number:'0.2'}}</label>
+                <label>{{equity.prevEquity.iv | number:'0.2'}}</label>
+              </td>
+              <td>
+                <label>{{equity.volume | number:'1.1-1'}}</label>
+                <label>{{equity.prevEquity.volumeDif | number:'1.1-1'}}</label>
+              </td>
+              <td>
+                <label class="strikethrough">{{equity.chnginOI}}</label>
+                <label>{{equity.prevEquity.chnginDif}}</label>
+              </td>
+              <td>
+                <label class="strikethrough">{{equity.oi}}</label>
+                <-- <label>{{equity.prevEquity.oi}}</label> 
+              </td>
+              <td *ngIf="equity.postionsVol!=='NaN' &&  equity.prevEquity.postionsVol!=='NaN'">
+                {{equity.postionsVol | number:'1.1-1'}}
+                {{equity.prevEquity.postionsVol | number:'1.1-1'}}
+              </td>
+              <td>{{equity.date| date: 'hh-mm'}}</td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </div> -->
+
+
+  </div>
+</div>

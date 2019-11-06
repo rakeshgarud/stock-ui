@@ -109,7 +109,7 @@ label {
         width: 100%;
       }
       
-      td {
+     td {
         border: 1px solid #dddddd;
         text-align: left;
         padding: 8px;
@@ -123,20 +123,14 @@ label {
         font-size: 13px;
       }
 
-      th:nth-child(11) {
+      /* th:nth-child(11) {
         border: 1px solid #aba5a5;
         text-align: left;
         padding: 5px;
         background-color: honeydew;
         font-size: 13px;
       }
-      td:nth-child(-n+11) {
-        border: 1px solid #aba5a5;
-        text-align: left;
-        padding: 5px;
-        background: #fbf5cd !important;;
-        font-size: 11px;
-      }
+      
      
       td:nth-child(-n+21) {
         border: 1px solid #aba5a5;
@@ -144,10 +138,41 @@ label {
         padding: 5px;
         background-color: honeydew;
         font-size: 11px;
+      } */
+
+      td {
+        border: 1px solid #aba5a5;
+        text-align: left;
+        padding: 5px;
+        background: #fbf5cd !important;;
+        font-size: 11px;
       }
       .graybg {
-        background-color: gray;
+        
         font-weight: bold;
+        border: 1px solid #aba5a5;
+        text-align: left;
+        padding: 5px;
+        background: #E0E0E0 !important;
+        font-size: 11px;
+      }
+
+      .callbg {
+        font-weight: bold;
+        border: 1px solid #aba5a5;
+        text-align: left;
+        padding: 5px;
+        background: #fbf5cd ;
+        font-size: 11px;
+      }
+
+      .putbg {
+        font-weight: bold;
+        border: 1px solid #aba5a5;
+        text-align: left;
+        padding: 5px;
+        background-color:honeydew !important;
+        font-size: 11px;
       }
      /*  .option>td {
         background: #fbf5cd;

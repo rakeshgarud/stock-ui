@@ -18,12 +18,25 @@ export class StockOptionChainComponent implements OnInit {
   putEquities: Object[] = [];
   sortDir: boolean;
   search: any = { strikePrice: null, startDate: null, endDate: null, type: 'CALL' };
-
+  expiryDates: any[]=[];
   constructor(private stockservice: StockService) { }
 
   ngOnInit() {
     this.getCheckfilter();
+    this.getExpiryDates();
     this.getSymbols();
+    this.getStockOptions();
+  }
+
+  getExpiryDates() {
+    this.stockservice.getExpiryDates().subscribe(data => {
+      this.expiryDates = data;
+    });
+    this.search.filter = this.filtersRequest;
+  }
+
+  expiryDatesDropDown(date: any) {
+    this.search.expiryDate = date;
     this.getStockOptions();
   }
   getCheckfilter() {
@@ -97,6 +110,8 @@ export class StockOptionChainComponent implements OnInit {
 
   symbolDropDown(symbol: any) {
     this.search.symbol = symbol;
-    //this.getEquities();
+    this.getStockOptions();
   }
+
+  
 }

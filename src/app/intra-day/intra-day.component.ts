@@ -18,14 +18,27 @@ export class IntraDayComponent implements OnInit {
   callIntradayYesterdayToday: Object[] = [];
   putIntradayYesterdayToday: Object[] = [];
   sortDir: boolean;
+  expiryDates: any[]=[];
   constructor(private stockService:StockService) { }
 
   ngOnInit() {
     this.getCheckfilter();
+    this.getExpiryDates();
   }
 
    getData(value: any) {
     this.search.type = value;
+    this.getIntradayYesterdayMinusTodayCall();
+  }
+
+  getExpiryDates() {
+    this.stockService.getExpiryDates().subscribe(data => {
+      this.expiryDates = data;
+    });
+  }
+
+  expiryDatesDropDown(date: any) {
+    this.search.expiryDate = date;
     this.getIntradayYesterdayMinusTodayCall();
   }
 
